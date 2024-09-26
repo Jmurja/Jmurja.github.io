@@ -10,7 +10,7 @@ nav a::after {
     width: 0;
     height: 2px;
     background-color: #4f46e5;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-out;
 }
 
 nav a:hover::after {

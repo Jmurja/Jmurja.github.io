@@ -42,8 +42,8 @@
 
 <!-- Navbar -->
 <nav class="bg-slate-900 bg-opacity-90 fixed w-full z-20">
-	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
-		<h1 class="text-2xl font-bold text-slate-100 font-heading">Dev João Murja</h1>
+	<div class="container mx-auto px-4 sm:px-2 py-4 flex justify-between items-center">
+		<h1 class="text-2xl sm:text-xl font-bold text-slate-100 font-heading">Dev João Murja</h1>
 		<div class="md:hidden">
 			<button id="menu-btn" class="text-slate-100 focus:outline-none">
 				<!-- Ícone do menu -->
@@ -167,7 +167,183 @@
 </footer>
 
 <button id="top-button" class="hidden fixed bottom-4 right-4 bg-primary text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition">
-	⬆️
+	⬆️<!DOCTYPE html>
+	<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Dev João Murja</title>
+		<!-- Importando fontes -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+		<!-- Tailwind CSS via CDN -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- Configurando Tailwind para usar as fontes e cores personalizadas -->
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Open Sans', 'sans-serif'],
+							heading: ['Montserrat', 'sans-serif'],
+						},
+						colors: {
+							primary: '#4f46e5',
+							secondary: '#3730a3',
+						},
+						animation: {
+							'spin-slow': 'spin 3s linear infinite',
+						}
+					}
+				},
+				darkMode: 'class',
+			}
+		</script>
+		<!-- Font Awesome para ícones -->
+		<script src="https://kit.fontawesome.com/SEU_KIT.js" crossorigin="anonymous"></script>
+		<!-- Seu CSS personalizado -->
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body class="bg-slate-900 text-slate-100 font-sans">
+	<!-- Loader -->
+	<div id="loader" class="fixed inset-0 bg-slate-900 flex items-center justify-center z-50">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- Navbar -->
+	<nav class="bg-slate-900 bg-opacity-90 fixed w-full z-20">
+		<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+			<h1 class="text-2xl font-bold text-slate-100 font-heading">Dev João Murja</h1>
+			<div class="md:hidden">
+				<button id="menu-btn" class="text-slate-100 focus:outline-none">
+					<!-- Ícone do menu -->
+					<svg xmlns="http://www.w3.org/2000/svg" id="menu-open-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<!-- Menu desktop -->
+			<ul class="hidden md:flex space-x-6">
+				<li><a href="#home" class="text-slate-300 hover:text-primary transition">Início</a></li>
+				<li><a href="#about" class="text-slate-300 hover:text-primary transition">Sobre mim</a></li>
+				<li><a href="#skills" class="text-slate-300 hover:text-primary transition">Tecnologias</a></li>
+				<li><a href="#projects" class="text-slate-300 hover:text-primary transition">Projetos</a></li>
+			</ul>
+		</div>
+		<!-- Menu mobile -->
+		<ul id="menu" class="absolute bg-slate-900 w-full left-0 top-16 hidden flex-col items-center md:hidden">
+			<li class="w-full text-center py-2"><a href="#home" class="block text-slate-300 hover:text-primary">Início</a></li>
+			<li class="w-full text-center py-2"><a href="#about" class="block text-slate-300 hover:text-primary">Sobre mim</a></li>
+			<li class="w-full text-center py-2"><a href="#skills" class="block text-slate-300 hover:text-primary">Tecnologias</a></li>
+			<li class="w-full text-center py-2"><a href="#projects" class="block text-slate-300 hover:text-primary">Projetos</a></li>
+		</ul>
+	</nav>
+	
+	<!-- Seção Hero -->
+	<section id="home" class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 w-full h-screen flex items-center justify-center pt-20">
+		<div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('img/background.png');"></div>
+		<div class="container mx-auto text-center space-y-8 relative z-10">
+			<h2 class="text-5xl md:text-6xl font-extrabold text-primary font-heading animate-pulse">
+				Construímos a ponte entre a sua ideia e o mundo
+			</h2>
+			<p class="text-xl text-slate-300 max-w-2xl mx-auto">
+				Transformando ideias em soluções digitais eficientes.
+			</p>
+		</div>
+	</section>
+	
+	<!-- Sobre Mim -->
+	<section id="about" class="py-20 bg-slate-800">
+		<div class="container mx-auto flex flex-col md:flex-row items-center">
+			<div class="md:w-1/2 text-center md:text-left space-y-6">
+				<h2 class="text-4xl font-bold text-primary font-heading">Sobre Mim</h2>
+				<p class="max-w-lg text-lg text-slate-300 leading-relaxed">
+					Olá! Meu nome é João Murja, tenho 18 anos e estou no mundo da programação desde 2020, quando realizei um curso técnico em Programação Web. Atualmente, estou cursando faculdade e estagiando na área, sempre em busca de novos desafios para aprimorar minhas habilidades e explorar novas tecnologias.
+				</p>
+				<a href="#projects" class="inline-block mt-4 px-6 py-2 bg-primary text-white font-semibold rounded hover:bg-secondary transition hover:scale-105 transform">Veja meus projetos</a>
+			</div>
+			<div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+				<div class="relative group">
+					<img src="img/photo.png" alt="Foto de João Murja" class="w-48 h-48 rounded-full shadow-lg object-cover">
+					<div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- Tecnologias -->
+	<section id="skills" class="bg-slate-900 py-20">
+		<div class="container mx-auto text-center">
+			<h2 class="text-4xl font-bold mb-12 text-primary font-heading">Tecnologias</h2>
+			<div class="flex flex-wrap justify-center gap-12">
+				<div class="w-24 h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-primary hover:scale-110 transition">
+					<img src="img/laravel.png" alt="Laravel" class="w-12 h-12">
+				</div>
+				<div class="w-24 h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-primary hover:scale-110 transition">
+					<img src="img/javascript.png" alt="JavaScript" class="w-12 h-12">
+				</div>
+				<div class="w-24 h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-primary hover:scale-110 transition">
+					<img src="img/html.png" alt="HTML" class="w-12 h-12">
+				</div>
+				<div class="w-24 h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-primary hover:scale-110 transition">
+					<img src="img/css.png" alt="CSS" class="w-12 h-12">
+				</div>
+				<div class="w-24 h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-primary hover:scale-110 transition">
+					<img src="img/tailwind.png" alt="Sass" class="w-12 h-12">
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- Projetos -->
+	<section id="projects" class="py-20 bg-slate-800">
+		<div class="container mx-auto">
+			<h2 class="text-4xl font-bold mb-12 text-primary text-center font-heading">Projetos</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+				<!-- Projeto 1 -->
+				<div class="bg-slate-900 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition group">
+					<div class="relative">
+						<img src="img/loca.png" alt="Projeto 1" class="w-full h-56 object-cover">
+						<div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition"></div>
+					</div>
+					<div class="p-6">
+						<h3 class="text-xl font-bold text-slate-100">Loca Soluções</h3>
+						<p class="text-slate-400 mt-2">Desenvolvido com Laravel, JavaScript e TailwindCSS, este projeto aprimorou minhas habilidades em programação.</p>
+						<a href="https://github.com/Jmurja/locasolucoes" class="inline-block mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition">Ver Projeto</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer class="bg-slate-900 text-slate-400 py-8">
+		<div class="container mx-auto text-center space-y-4">
+			<p>&copy; 2024 João Murja. Todos os direitos reservados.</p>
+			<div class="flex justify-center space-x-6">
+				<a href="https://github.com/Jmurja" target="_blank" class="hover:text-primary w-10 h-10 transition">
+					<img src="img/github.png" alt="" srcset="">
+				</a>
+				<a href="https://instagram.com/Jmurja_" target="_blank" class="hover:text-primary w-10 h-10 transition">
+					<img src="img/instagram.png" alt="" srcset="">			</a>
+				<a href="https://www.linkedin.com/in/jmurja/" target="_blank" class="hover:text-primary w-10 h-10 transition">
+					<img src="img/linkedin.png" alt="" srcset="">			</a>
+				<a href="https://api.whatsapp.com/send?phone=5517991048306" target="_blank" class="hover:text-primary w-10 h-10 transition">
+					<img src="img/whatsapp.png" alt="" srcset="">			</a>
+			</div>
+		</div>
+	</footer>
+	
+	<button id="top-button" class="hidden fixed bottom-4 right-4 bg-primary text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition">
+		⬆️
+	</button>
+	
+	
+	
+	<script src="script.js"></script>
+	</body>
+	</html>
 </button>
 
 
