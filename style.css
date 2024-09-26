@@ -16,3 +16,10 @@ nav a::after {
 nav a:hover::after {
     width: 100%;
 }
+
+footer a {
+    transition: transform 0.3s;
+}
+footer a:hover {
+    transform: scale(1.2);
+}
