@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -84,6 +83,8 @@
 	let responseTimer;
 	let passCount = 0;
 	let hasPassed = false;
+	let simultaneousTouch = false;
+	let buzzerTimeout;
 	
 	const questions = [
 		{
@@ -158,45 +159,27 @@
 		let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
 		let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
 		
-		let buzzerPressed = false;
-		
 		buzzerButtonTeamA.addEventListener('touchstart', handleTouchStart);
 		buzzerButtonTeamB.addEventListener('touchstart', handleTouchStart);
 		
-		buzzerButtonTeamA.addEventListener('touchend', handleTouchEnd);
-		buzzerButtonTeamB.addEventListener('touchend', handleTouchEnd);
-		
 		function handleTouchStart(e) {
-			e.preventDefault();  // Prevenir comportamento padrão
-			buzzerPressed = true;  // Marcar que o buzzer foi pressionado
-		}
-		
-		function handleTouchEnd(e) {
-			e.preventDefault();  // Prevenir comportamento padrão
-			if (!buzzerPressed) return;
-			buzzerPressed = false;
-			let releasedElement = e.target.id;
-			
-			if (releasedElement === 'buzzer-button-team-a') {
-				currentTeam = 'Time A';
-			} else if (releasedElement === 'buzzer-button-team-b') {
-				currentTeam = 'Time B';
+			e.preventDefault();
+			if (!simultaneousTouch) {
+				simultaneousTouch = true;
+				buzzerTimeout = setTimeout(() => {
+					simultaneousTouch = false;
+					document.getElementById('buzzer-screen').classList.add('hidden');
+					proceedToQuestion();
+				}, 3000);
 			}
-			
-			proceedToQuestion();
 		}
-		
-		function proceedToQuestion() {
-			buzzerButtonTeamA.removeEventListener('touchstart', handleTouchStart);
-			buzzerButtonTeamB.removeEventListener('touchstart', handleTouchStart);
-			buzzerButtonTeamA.removeEventListener('touchend', handleTouchEnd);
-			buzzerButtonTeamB.removeEventListener('touchend', handleTouchEnd);
-			
-			document.getElementById('buzzer-screen').classList.add('hidden');
-			originalTeam = currentTeam;
-			showQuestion();
-			updateScores();
-		}
+	}
+	
+	function proceedToQuestion() {
+		document.getElementById('buzzer-screen').classList.add('hidden');
+		originalTeam = currentTeam;
+		showQuestion();
+		updateScores();
 	}
 	
 	function showQuestion() {
@@ -233,7 +216,6 @@
 			if (timeLeft <= 0) {
 				clearInterval(responseTimer);
 				if (passCount === 2) {
-					// Se estiver no segundo "Passar/Repassar" e o tempo acabar, subtrair pontos
 					if (currentTeam === 'Time A') {
 						teamAScore -= 5;
 					} else {
@@ -242,7 +224,7 @@
 					updateScores();
 					showOverlay('Tempo esgotado. -5 pontos.', nextQuestion);
 				} else {
-					passQuestion(); // Se for o primeiro passar, passar a pergunta normalmente
+					passQuestion();
 				}
 			}
 		}, 1000);
