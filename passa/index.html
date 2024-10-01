@@ -60,7 +60,6 @@
 				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B"
 				     class="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 m-4">
 			</div>
-			
 			<p class="mt-4 text-2xl">O primeiro time a soltar a imagem poderá responder.</p>
 		</div>
 		
@@ -133,21 +132,14 @@
 		}
 	}
 	
-	document.addEventListener('DOMContentLoaded', function () {
-		const startScreen = document.getElementById('start-screen');
-		
-		startScreen.addEventListener('click', function(event) {
-			if (event.target.id === 'start-button') {
-				startScreen.classList.add('hidden');
-				startCountdown();
-			}
-		});
+	document.getElementById('start-button').addEventListener('click', () => {
+		document.getElementById('start-screen').classList.add('hidden');
+		startCountdown();
 	});
 	
 	function startCountdown() {
 		let countdown = 3;
-		const countdownScreen = document.getElementById('countdown-screen');
-		countdownScreen.classList.remove('hidden');
+		document.getElementById('countdown-screen').classList.remove('hidden');
 		document.getElementById('countdown').innerText = countdown;
 		
 		const countdownInterval = setInterval(() => {
@@ -156,12 +148,11 @@
 				document.getElementById('countdown').innerText = countdown;
 			} else {
 				clearInterval(countdownInterval);
-				countdownScreen.classList.add('hidden');
+				document.getElementById('countdown-screen').classList.add('hidden');
 				startBuzzer();
 			}
 		}, 1000);
 	}
-
 	
 	function startBuzzer() {
 		document.getElementById('buzzer-screen').classList.remove('hidden');
@@ -195,7 +186,6 @@
 			}
 			
 			proceedToQuestion();
-			startResponseTimer();  // Iniciar o timer após mostrar a pergunta
 		}
 		
 		function proceedToQuestion() {
@@ -209,28 +199,31 @@
 			showQuestion();
 			updateScores();
 		}
+	}
+	
+	function showQuestion() {
+		document.getElementById('question-screen').classList.remove('hidden');
+		const currentQuestion = questions[currentQuestionIndex];
+		document.getElementById('question').innerText = currentQuestion.question;
 		
-		function showQuestion() {
-			document.getElementById('question-screen').classList.remove('hidden');
-			const currentQuestion = questions[currentQuestionIndex];
-			document.getElementById('question').innerText = currentQuestion.question;
-			
-			const optionsContainer = document.getElementById('options');
-			optionsContainer.innerHTML = '';
-			
-			currentQuestion.options.forEach((option) => {
-				const button = document.createElement('button');
-				button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
-				button.innerText = option;
-				button.addEventListener('click', () => checkAnswer(option.charAt(0)));
-				optionsContainer.appendChild(button);
-			});
-			
-			hasPassed = false;
-			passCount = 0;
-			document.getElementById('pass-button').innerText = 'Passar';
-			document.getElementById('pass-button').classList.remove('hidden');
-		}
+		const optionsContainer = document.getElementById('options');
+		optionsContainer.innerHTML = '';
+		
+		currentQuestion.options.forEach((option) => {
+			const button = document.createElement('button');
+			button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
+			button.innerText = option;
+			button.addEventListener('click', () => checkAnswer(option.charAt(0)));
+			optionsContainer.appendChild(button);
+		});
+		
+		hasPassed = false;
+		passCount = 0;
+		document.getElementById('pass-button').innerText = 'Passar';
+		document.getElementById('pass-button').classList.remove('hidden');
+		
+		startResponseTimer();
+	}
 	
 	function startResponseTimer() {
 		let timeLeft = 30;
