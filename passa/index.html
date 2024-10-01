@@ -184,6 +184,7 @@
 			}
 			
 			proceedToQuestion();
+			startResponseTimer();  // Iniciar o timer após mostrar a pergunta
 		}
 		
 		function proceedToQuestion() {
@@ -197,31 +198,28 @@
 			showQuestion();
 			updateScores();
 		}
-	}
-	
-	function showQuestion() {
-		document.getElementById('question-screen').classList.remove('hidden');
-		const currentQuestion = questions[currentQuestionIndex];
-		document.getElementById('question').innerText = currentQuestion.question;
 		
-		const optionsContainer = document.getElementById('options');
-		optionsContainer.innerHTML = '';
-		
-		currentQuestion.options.forEach((option) => {
-			const button = document.createElement('button');
-			button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
-			button.innerText = option;
-			button.addEventListener('click', () => checkAnswer(option.charAt(0)));
-			optionsContainer.appendChild(button);
-		});
-		
-		hasPassed = false;
-		passCount = 0;
-		document.getElementById('pass-button').innerText = 'Passar';
-		document.getElementById('pass-button').classList.remove('hidden');
-		
-		startResponseTimer();
-	}
+		function showQuestion() {
+			document.getElementById('question-screen').classList.remove('hidden');
+			const currentQuestion = questions[currentQuestionIndex];
+			document.getElementById('question').innerText = currentQuestion.question;
+			
+			const optionsContainer = document.getElementById('options');
+			optionsContainer.innerHTML = '';
+			
+			currentQuestion.options.forEach((option) => {
+				const button = document.createElement('button');
+				button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
+				button.innerText = option;
+				button.addEventListener('click', () => checkAnswer(option.charAt(0)));
+				optionsContainer.appendChild(button);
+			});
+			
+			hasPassed = false;
+			passCount = 0;
+			document.getElementById('pass-button').innerText = 'Passar';
+			document.getElementById('pass-button').classList.remove('hidden');
+		}
 	
 	function startResponseTimer() {
 		let timeLeft = 30;
