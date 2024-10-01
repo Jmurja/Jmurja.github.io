@@ -1,170 +1,496 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="pt-BR">-->
+<!--<head>-->
+<!--	<meta charset="UTF-8">-->
+<!--	<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--	<title>Dev João Murja</title>-->
+<!--	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">-->
+<!--	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">-->
+<!--	<script src="https://cdn.tailwindcss.com"></script>-->
+<!--	<script src="https://kit.fontawesome.com/SEU_KIT.js" crossorigin="anonymous"></script>-->
+<!--	<link rel="stylesheet" href="output.css">-->
+<!--</head>-->
+<!--<body class="bg-slate-900 text-slate-100 font-sans">-->
+<!--&lt;!&ndash; Loader &ndash;&gt;-->
+<!--<div id="loader" class="fixed inset-0 bg-slate-900 flex items-center justify-center z-50">-->
+<!--	<div class="loader"></div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Navbar &ndash;&gt;-->
+<!--<nav class="bg-slate-900 bg-opacity-90 fixed w-full z-20">-->
+<!--	<div class="container mx-auto px-4 py-4 flex justify-between items-center">-->
+<!--		<a href="#home" class="text-2xl font-bold text-slate-100 font-heading">Dev João Murja</a>-->
+<!--		<div class="md:hidden">-->
+<!--			<button id="menu-btn" class="text-slate-100 focus:outline-none">-->
+<!--				&lt;!&ndash; Ícone do menu &ndash;&gt;-->
+<!--				<svg xmlns="http://www.w3.org/2000/svg" id="menu-open-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />-->
+<!--				</svg>-->
+<!--				<svg xmlns="http://www.w3.org/2000/svg" id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />-->
+<!--				</svg>-->
+<!--			</button>-->
+<!--		</div>-->
+<!--		&lt;!&ndash; Menu desktop &ndash;&gt;-->
+<!--		<ul class="hidden md:flex space-x-6">-->
+<!--			<li><a href="#home" class="text-slate-300 hover:text-purple-500 transition">Início</a></li>-->
+<!--			<li><a href="#about" class="text-slate-300 hover:text-purple-500 transition">Sobre mim</a></li>-->
+<!--			<li><a href="#skills" class="text-slate-300 hover:text-purple-500 transition">Tecnologias</a></li>-->
+<!--			<li><a href="#projects" class="text-slate-300 hover:text-purple-500 transition">Projetos</a></li>-->
+<!--		</ul>-->
+<!--	</div>-->
+<!--	&lt;!&ndash; Menu mobile &ndash;&gt;-->
+<!--	<ul id="menu" class="absolute bg-slate-900 w-full left-0 top-16 hidden flex-col items-center md:hidden text-lg">-->
+<!--		<li class="w-full text-center py-2"><a href="#home" class="block text-slate-300 hover:text-purple-500">Início</a></li>-->
+<!--		<li class="w-full text-center py-2"><a href="#about" class="block text-slate-300 hover:text-purple-500">Sobre mim</a></li>-->
+<!--		<li class="w-full text-center py-2"><a href="#skills" class="block text-slate-300 hover:text-purple-500">Tecnologias</a></li>-->
+<!--		<li class="w-full text-center py-2"><a href="#projects" class="block text-slate-300 hover:text-purple-500">Projetos</a></li>-->
+<!--	</ul>-->
+<!--</nav>-->
+
+<!--&lt;!&ndash; Seção Hero &ndash;&gt;-->
+<!--<section id="home" class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 w-full h-screen flex items-center justify-center pt-20">-->
+<!--	<div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('img/background.png');"></div>-->
+<!--	<div class="container mx-auto text-center space-y-8 relative z-10 px-4">-->
+<!--		<h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-purple-500 font-heading animate-pulse">-->
+<!--			Construímos a ponte entre a sua ideia e o mundo-->
+<!--		</h2>-->
+<!--		<p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">-->
+<!--			Transformando ideias em soluções digitais eficientes.-->
+<!--		</p>-->
+<!--	</div>-->
+<!--	-->
+<!--	&lt;!&ndash; Botão de rolagem &ndash;&gt;-->
+<!--	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">-->
+<!--		<a href="#about" class="text-slate-300 hover:text-purple-500 transition">-->
+<!--			<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />-->
+<!--			</svg>-->
+<!--		</a>-->
+<!--	</div>-->
+<!--</section>-->
+
+
+<!--&lt;!&ndash; Sobre Mim &ndash;&gt;-->
+<!--<section id="about" class="py-10 md:py-20 bg-slate-800">-->
+<!--	<div class="container mx-auto flex flex-col md:flex-row items-center px-4 space-y-8 md:space-y-0 md:space-x-8">-->
+<!--		<div class="md:w-1/2 text-center md:text-left space-y-6">-->
+<!--			<h2 class="text-3xl md:text-4xl font-bold text-purple-500 font-heading">Sobre Mim</h2>-->
+<!--			<p class="max-w-lg text-base md:text-lg text-slate-300 leading-relaxed">-->
+<!--				Olá! Meu nome é <span class="font-bold text-slate-100">João Murja </span>, tenho 18 anos e estudo programação desde 2020, quando iniciei um curso técnico em Programação Web. Atualmente, estou cursando faculdade e estagiando na área, sempre em busca de novos desafios para aprimorar minhas habilidades e explorar novas tecnologias.</p>-->
+<!--			<a href="#projects" class="inline-block mt-4 px-8 py-3 bg-primary text-white font-semibold rounded hover:bg-secondary transition hover:scale-105 transform bg-purple-700 hover:bg-purple-800">Veja meus projetos</a>		</div>-->
+<!--		<div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">-->
+<!--			<div class="relative group">-->
+<!--				<img src="img/photo.png" alt="Foto de João Murja" class="w-32 h-32 md:w-48 md:h-48 rounded-full shadow-lg object-cover max-w-full h-auto">-->
+<!--				<div class="absolute inset-0 bg-purple-500 bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition"></div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+
+<!--<section id="skills" class="bg-slate-900 py-10 md:py-20">-->
+<!--	<div class="container mx-auto text-center px-4">-->
+<!--		<h2 class="text-3xl md:text-4xl font-bold mb-12 text-purple-500 font-heading">Tecnologias</h2>-->
+<!--		<div class="flex flex-wrap justify-center gap-8 md:gap-12">-->
+<!--			&lt;!&ndash; Tecnologia 1 &ndash;&gt;-->
+<!--			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">-->
+<!--				<img src="img/laravel.png" alt="Laravel" class="w-10 h-10 md:w-12 md:h-12">-->
+<!--			</div>-->
+<!--			&lt;!&ndash; Tecnologia 2 &ndash;&gt;-->
+<!--			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">-->
+<!--				<img src="img/javascript.png" alt="JavaScript" class="w-10 h-10 md:w-12 md:h-12">-->
+<!--			</div>-->
+<!--			&lt;!&ndash; Tecnologia 3 &ndash;&gt;-->
+<!--			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">-->
+<!--				<img src="img/html.png" alt="HTML" class="w-10 h-10 md:w-12 md:h-12">-->
+<!--			</div>-->
+<!--			&lt;!&ndash; Tecnologia 4 &ndash;&gt;-->
+<!--			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">-->
+<!--				<img src="img/css.png" alt="CSS" class="w-10 h-10 md:w-12 md:h-12">-->
+<!--			</div>-->
+<!--			&lt;!&ndash; Tecnologia 5 &ndash;&gt;-->
+<!--			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">-->
+<!--				<img src="img/tailwind.png" alt="Tailwind CSS" class="w-10 h-10 md:w-12 md:h-12">-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Projetos &ndash;&gt;-->
+<!--<section id="projects" class="py-10 md:py-20 bg-slate-800">-->
+<!--	<div class="container mx-auto px-4">-->
+<!--		<h2 class="text-3xl md:text-4xl font-bold mb-12 text-primary text-center font-heading text-purple-500">Projetos</h2>-->
+<!--		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">-->
+<!--			&lt;!&ndash; Projeto 1 &ndash;&gt;-->
+<!--			<div class="bg-slate-900 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition group">-->
+<!--				<div class="relative">-->
+<!--					<img src="img/loca.png" alt="Projeto 1" class="w-full h-56 object-cover">-->
+<!--					<div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition"></div>-->
+<!--				</div>-->
+<!--				<div class="p-6">-->
+<!--					<h3 class="text-xl font-bold text-slate-100">Loca Soluções</h3>-->
+<!--					<p class="text-slate-400 mt-2">Desenvolvido com Laravel, JavaScript e TailwindCSS, este projeto aprimorou minhas habilidades em programação.</p>-->
+<!--					<a href="https://github.com/Jmurja/locasolucoes" class="inline-block mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition">Ver Projeto</a>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			&lt;!&ndash; Adicione mais projetos aqui &ndash;&gt;-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+
+<!--<footer class="bg-slate-900 text-slate-400 py-8">-->
+<!--	<div class="container mx-auto text-center space-y-4 px-4">-->
+<!--		<p>&copy; 2024 João Murja. Todos os direitos reservados.</p>-->
+<!--		-->
+<!--		<div class="flex justify-center space-x-6">-->
+<!--			<a href="https://github.com/Jmurja" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">-->
+<!--				<img src="img/github.png" alt="GitHub">-->
+<!--			</a>-->
+<!--			<a href="https://instagram.com/Jmurja_" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">-->
+<!--				<img src="img/instagram.png" alt="Instagram">-->
+<!--			</a>-->
+<!--			<a href="https://www.linkedin.com/in/jmurja/" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">-->
+<!--				<img src="img/linkedin.png" alt="LinkedIn">-->
+<!--			</a>-->
+<!--			<a href="https://api.whatsapp.com/send?phone=5517991048306" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">-->
+<!--				<img src="img/whatsapp.png" alt="WhatsApp">-->
+<!--			</a>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	-->
+<!--	-->
+<!--</footer>-->
+
+<!--<button id="top-button" class="hidden fixed bottom-4 right-4 bg-primary text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition">-->
+<!--	⬆️-->
+<!--</button>-->
+
+<!--<script src="script.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dev João Murja</title>
-	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+	<title>Jogo de Perguntas e Respostas</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="https://kit.fontawesome.com/SEU_KIT.js" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="output.css">
+	<style>
+		body {
+			-webkit-touch-callout: none; /* Evitar chamadas de contexto no iOS */
+			-webkit-user-select: none;   /* Desativar a seleção de texto no iOS */
+			-khtml-user-select: none;    /* Desativar a seleção de texto em navegadores baseados no KHTML */
+			-moz-user-select: none;      /* Desativar a seleção de texto no Firefox */
+			-ms-user-select: none;       /* Desativar a seleção de texto no IE */
+			user-select: none;           /* Desativar a seleção de texto no Chrome */
+		}
+	</style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans">
-<!-- Loader -->
-<div id="loader" class="fixed inset-0 bg-slate-900 flex items-center justify-center z-50">
-	<div class="loader"></div>
+<body class="bg-gray-100" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
+
+<div class="max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-lg min-h-screen flex flex-col">
+	
+	<div id="scoreboard" class="flex justify-between items-center bg-gray-200 p-4 rounded-lg mb-4">
+		<div class="text-center">
+			<p class="text-3xl font-bold">Time A</p>
+			<p class="text-3xl text-red-600" id="team-a-score">0</p>
+		</div>
+		<div class="text-center">
+			<p class="text-3xl font-bold">Time B</p>
+			<p class="text-3xl text-blue-600" id="team-b-score">0</p>
+		</div>
+		<div class="text-center">
+			<p class="text-3xl font-bold">Vez do</p>
+			<p class="text-3xl" id="current-team">-</p>
+		</div>
+	</div>
+	
+	<div id="game-container" class="flex-grow flex flex-col">
+		
+		<div id="start-screen" class="flex items-center justify-center flex-grow">
+			<div class="text-center">
+				<h1 class="text-5xl font-bold mb-8">PASSA OU REPASSA</h1>
+				<button id="start-button" class="bg-blue-500 text-white px-8 py-4 rounded-lg text-xl">
+					Iniciar
+				</button>
+			</div>
+		</div>
+		
+		<div id="countdown-screen" class="hidden flex items-center justify-center flex-grow">
+			<h2 id="countdown" class="text-8xl font-bold"></h2>
+		</div>
+		
+		<div id="buzzer-screen" class="hidden flex flex-col items-center justify-center flex-grow">
+			<h2 class="text-3xl font-semibold mb-8">Posicione sua mão na imagem</h2>
+			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
+				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
+				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B" class="w-64 h-64 m-4 cursor-pointer">
+			</div>
+			<p class="mt-4 text-2xl">O primeiro time a soltar a imagem poderá responder.</p>
+		</div>
+		
+		<div id="question-screen" class="hidden flex flex-col items-center justify-center flex-grow">
+			<h2 id="question" class="text-3xl font-semibold mb-8 text-center"></h2>
+			<div id="options" class="grid grid-cols-2 gap-6"></div>
+			<button id="pass-button" class="mt-6 bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg">
+				Passar
+			</button>
+			<p id="timer" class="mt-4 text-red-500 font-bold text-xl"></p>
+		</div>
+	
+	</div>
 </div>
 
-<!-- Navbar -->
-<nav class="bg-slate-900 bg-opacity-90 fixed w-full z-20">
-	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
-		<a href="#home" class="text-2xl font-bold text-slate-100 font-heading">Dev João Murja</a>
-		<div class="md:hidden">
-			<button id="menu-btn" class="text-slate-100 focus:outline-none">
-				<!-- Ícone do menu -->
-				<svg xmlns="http://www.w3.org/2000/svg" id="menu-open-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
-				</svg>
-				<svg xmlns="http://www.w3.org/2000/svg" id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-				</svg>
-			</button>
-		</div>
-		<!-- Menu desktop -->
-		<ul class="hidden md:flex space-x-6">
-			<li><a href="#home" class="text-slate-300 hover:text-purple-500 transition">Início</a></li>
-			<li><a href="#about" class="text-slate-300 hover:text-purple-500 transition">Sobre mim</a></li>
-			<li><a href="#skills" class="text-slate-300 hover:text-purple-500 transition">Tecnologias</a></li>
-			<li><a href="#projects" class="text-slate-300 hover:text-purple-500 transition">Projetos</a></li>
-		</ul>
+<div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+	<div id="overlay-content" class="bg-white p-8 rounded-lg shadow-lg text-center">
 	</div>
-	<!-- Menu mobile -->
-	<ul id="menu" class="absolute bg-slate-900 w-full left-0 top-16 hidden flex-col items-center md:hidden text-lg">
-		<li class="w-full text-center py-2"><a href="#home" class="block text-slate-300 hover:text-purple-500">Início</a></li>
-		<li class="w-full text-center py-2"><a href="#about" class="block text-slate-300 hover:text-purple-500">Sobre mim</a></li>
-		<li class="w-full text-center py-2"><a href="#skills" class="block text-slate-300 hover:text-purple-500">Tecnologias</a></li>
-		<li class="w-full text-center py-2"><a href="#projects" class="block text-slate-300 hover:text-purple-500">Projetos</a></li>
-	</ul>
-</nav>
-
-<!-- Seção Hero -->
-<section id="home" class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 w-full h-screen flex items-center justify-center pt-20">
-	<div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('img/background.png');"></div>
-	<div class="container mx-auto text-center space-y-8 relative z-10 px-4">
-		<h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-purple-500 font-heading animate-pulse">
-			Construímos a ponte entre a sua ideia e o mundo
-		</h2>
-		<p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">
-			Transformando ideias em soluções digitais eficientes.
-		</p>
-	</div>
+</div>
+<script>
+	let currentQuestionIndex = 0;
+	let currentTeam = '';
+	let originalTeam = '';
+	let teamAScore = 0;
+	let teamBScore = 0;
+	let responseTimer;
+	let passCount = 0;
+	let hasPassed = false;
 	
-	<!-- Botão de rolagem -->
-	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-		<a href="#about" class="text-slate-300 hover:text-purple-500 transition">
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-			</svg>
-		</a>
-	</div>
-</section>
-
-
-<!-- Sobre Mim -->
-<section id="about" class="py-10 md:py-20 bg-slate-800">
-	<div class="container mx-auto flex flex-col md:flex-row items-center px-4 space-y-8 md:space-y-0 md:space-x-8">
-		<div class="md:w-1/2 text-center md:text-left space-y-6">
-			<h2 class="text-3xl md:text-4xl font-bold text-purple-500 font-heading">Sobre Mim</h2>
-			<p class="max-w-lg text-base md:text-lg text-slate-300 leading-relaxed">
-				Olá! Meu nome é <span class="font-bold text-slate-100">João Murja </span>, tenho 18 anos e estudo programação desde 2020, quando iniciei um curso técnico em Programação Web. Atualmente, estou cursando faculdade e estagiando na área, sempre em busca de novos desafios para aprimorar minhas habilidades e explorar novas tecnologias.</p>
-			<a href="#projects" class="inline-block mt-4 px-8 py-3 bg-primary text-white font-semibold rounded hover:bg-secondary transition hover:scale-105 transform bg-purple-700 hover:bg-purple-800">Veja meus projetos</a>		</div>
-		<div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
-			<div class="relative group">
-				<img src="img/photo.png" alt="Foto de João Murja" class="w-32 h-32 md:w-48 md:h-48 rounded-full shadow-lg object-cover max-w-full h-auto">
-				<div class="absolute inset-0 bg-purple-500 bg-opacity-0 group-hover:bg-opacity-20 rounded-full transition"></div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section id="skills" class="bg-slate-900 py-10 md:py-20">
-	<div class="container mx-auto text-center px-4">
-		<h2 class="text-3xl md:text-4xl font-bold mb-12 text-purple-500 font-heading">Tecnologias</h2>
-		<div class="flex flex-wrap justify-center gap-8 md:gap-12">
-			<!-- Tecnologia 1 -->
-			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">
-				<img src="img/laravel.png" alt="Laravel" class="w-10 h-10 md:w-12 md:h-12">
-			</div>
-			<!-- Tecnologia 2 -->
-			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">
-				<img src="img/javascript.png" alt="JavaScript" class="w-10 h-10 md:w-12 md:h-12">
-			</div>
-			<!-- Tecnologia 3 -->
-			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">
-				<img src="img/html.png" alt="HTML" class="w-10 h-10 md:w-12 md:h-12">
-			</div>
-			<!-- Tecnologia 4 -->
-			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">
-				<img src="img/css.png" alt="CSS" class="w-10 h-10 md:w-12 md:h-12">
-			</div>
-			<!-- Tecnologia 5 -->
-			<div class="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-slate-800 rounded-full hover:bg-purple-500 hover:scale-110 transition">
-				<img src="img/tailwind.png" alt="Tailwind CSS" class="w-10 h-10 md:w-12 md:h-12">
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Projetos -->
-<section id="projects" class="py-10 md:py-20 bg-slate-800">
-	<div class="container mx-auto px-4">
-		<h2 class="text-3xl md:text-4xl font-bold mb-12 text-primary text-center font-heading text-purple-500">Projetos</h2>
-		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-			<!-- Projeto 1 -->
-			<div class="bg-slate-900 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition group">
-				<div class="relative">
-					<img src="img/loca.png" alt="Projeto 1" class="w-full h-56 object-cover">
-					<div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition"></div>
-				</div>
-				<div class="p-6">
-					<h3 class="text-xl font-bold text-slate-100">Loca Soluções</h3>
-					<p class="text-slate-400 mt-2">Desenvolvido com Laravel, JavaScript e TailwindCSS, este projeto aprimorou minhas habilidades em programação.</p>
-					<a href="https://github.com/Jmurja/locasolucoes" class="inline-block mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-secondary transition">Ver Projeto</a>
-				</div>
-			</div>
-			<!-- Adicione mais projetos aqui -->
-		</div>
-	</div>
-</section>
-
-<footer class="bg-slate-900 text-slate-400 py-8">
-	<div class="container mx-auto text-center space-y-4 px-4">
-		<p>&copy; 2024 João Murja. Todos os direitos reservados.</p>
+	const questions = [
+		{
+			question: 'Qual é a capital da França?',
+			options: ['A) Berlim', 'B) Madrid', 'C) Paris', 'D) Roma'],
+			answer: 'C'
+		},
+		{
+			question: 'Qual é o maior planeta do nosso sistema solar?',
+			options: ['A) Marte', 'B) Júpiter', 'C) Saturno', 'D) Vênus'],
+			answer: 'B'
+		},
+		{
+			question: 'Quem pintou a Mona Lisa?',
+			options: ['A) Vincent van Gogh', 'B) Leonardo da Vinci', 'C) Pablo Picasso', 'D) Michelangelo'],
+			answer: 'B'
+		},
+	];
+	
+	function updateScores() {
+		const teamAScoreElement = document.getElementById('team-a-score');
+		const teamBScoreElement = document.getElementById('team-b-score');
+		const currentTeamElement = document.getElementById('current-team');
 		
-		<div class="flex justify-center space-x-6">
-			<a href="https://github.com/Jmurja" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">
-				<img src="img/github.png" alt="GitHub">
-			</a>
-			<a href="https://instagram.com/Jmurja_" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">
-				<img src="img/instagram.png" alt="Instagram">
-			</a>
-			<a href="https://www.linkedin.com/in/jmurja/" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">
-				<img src="img/linkedin.png" alt="LinkedIn">
-			</a>
-			<a href="https://api.whatsapp.com/send?phone=5517991048306" target="_blank" class="hover:text-primary w-10 h-10 transition transform hover:scale-110">
-				<img src="img/whatsapp.png" alt="WhatsApp">
-			</a>
-		</div>
-	</div>
+		teamAScoreElement.innerText = teamAScore;
+		teamBScoreElement.innerText = teamBScore;
+		currentTeamElement.innerText = currentTeam;
+		
+		teamAScoreElement.classList.remove('text-red-600', 'text-blue-600');
+		teamBScoreElement.classList.remove('text-red-600', 'text-blue-600');
+		
+		if (currentTeam === 'Time A') {
+			currentTeamElement.classList.add('text-red-600');
+			currentTeamElement.classList.remove('text-blue-600');
+			teamAScoreElement.classList.add('text-red-600');
+			teamBScoreElement.classList.add('text-blue-600');
+		} else if (currentTeam === 'Time B') {
+			currentTeamElement.classList.add('text-blue-600');
+			currentTeamElement.classList.remove('text-red-600');
+			teamBScoreElement.classList.add('text-blue-600');
+			teamAScoreElement.classList.add('text-red-600');
+		} else {
+			currentTeamElement.classList.remove('text-red-600', 'text-blue-600');
+		}
+	}
 	
+	document.getElementById('start-button').addEventListener('click', () => {
+		document.getElementById('start-screen').classList.add('hidden');
+		startCountdown();
+	});
 	
-</footer>
+	function startCountdown() {
+		let countdown = 3;
+		document.getElementById('countdown-screen').classList.remove('hidden');
+		document.getElementById('countdown').innerText = countdown;
+		
+		const countdownInterval = setInterval(() => {
+			countdown--;
+			if (countdown > 0) {
+				document.getElementById('countdown').innerText = countdown;
+			} else {
+				clearInterval(countdownInterval);
+				document.getElementById('countdown-screen').classList.add('hidden');
+				startBuzzer();
+			}
+		}, 1000);
+	}
+	
+	function startBuzzer() {
+		document.getElementById('buzzer-screen').classList.remove('hidden');
+		
+		let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
+		let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
+		
+		let buzzerPressed = false;
+		
+		buzzerButtonTeamA.addEventListener('touchstart', handleTouchStart);
+		buzzerButtonTeamB.addEventListener('touchstart', handleTouchStart);
+		
+		buzzerButtonTeamA.addEventListener('touchend', handleTouchEnd);
+		buzzerButtonTeamB.addEventListener('touchend', handleTouchEnd);
+		
+		function handleTouchStart(e) {
+			e.preventDefault();  // Prevenir comportamento padrão
+			buzzerPressed = true;  // Marcar que o buzzer foi pressionado
+		}
+		
+		function handleTouchEnd(e) {
+			e.preventDefault();  // Prevenir comportamento padrão
+			if (!buzzerPressed) return;
+			buzzerPressed = false;
+			let releasedElement = e.target.id;
+			
+			if (releasedElement === 'buzzer-button-team-a') {
+				currentTeam = 'Time A';
+			} else if (releasedElement === 'buzzer-button-team-b') {
+				currentTeam = 'Time B';
+			}
+			
+			proceedToQuestion();
+		}
+		
+		function proceedToQuestion() {
+			buzzerButtonTeamA.removeEventListener('touchstart', handleTouchStart);
+			buzzerButtonTeamB.removeEventListener('touchstart', handleTouchStart);
+			buzzerButtonTeamA.removeEventListener('touchend', handleTouchEnd);
+			buzzerButtonTeamB.removeEventListener('touchend', handleTouchEnd);
+			
+			document.getElementById('buzzer-screen').classList.add('hidden');
+			originalTeam = currentTeam;
+			showQuestion();
+			updateScores();
+		}
+	}
+	
+	function showQuestion() {
+		document.getElementById('question-screen').classList.remove('hidden');
+		const currentQuestion = questions[currentQuestionIndex];
+		document.getElementById('question').innerText = currentQuestion.question;
+		
+		const optionsContainer = document.getElementById('options');
+		optionsContainer.innerHTML = '';
+		
+		currentQuestion.options.forEach((option) => {
+			const button = document.createElement('button');
+			button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
+			button.innerText = option;
+			button.addEventListener('click', () => checkAnswer(option.charAt(0)));
+			optionsContainer.appendChild(button);
+		});
+		
+		hasPassed = false;
+		passCount = 0;
+		document.getElementById('pass-button').innerText = 'Passar';
+		document.getElementById('pass-button').classList.remove('hidden');
+		
+		startResponseTimer();
+	}
+	
+	function startResponseTimer() {
+		let timeLeft = 30;
+		document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+		
+		responseTimer = setInterval(() => {
+			timeLeft--;
+			document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+			if (timeLeft <= 0) {
+				clearInterval(responseTimer);
+				passQuestion();
+			}
+		}, 1000);
+	}
+	
+	function checkAnswer(selectedOption) {
+		clearInterval(responseTimer);
+		const currentQuestion = questions[currentQuestionIndex];
+		let message = '';
+		
+		if (selectedOption === currentQuestion.answer) {
+			if (currentTeam === 'Time A') {
+				teamAScore += 10;
+			} else {
+				teamBScore += 10;
+			}
+			message = 'Resposta correta!';
+		} else {
+			if (currentTeam === 'Time A') {
+				teamAScore -= 5;
+			} else {
+				teamBScore -= 5;
+			}
+			message = 'Resposta incorreta!';
+		}
+		updateScores();
+		showOverlay(message, nextQuestion);
+	}
+	
+	document.getElementById('pass-button').addEventListener('click', passQuestion);
+	
+	function passQuestion() {
+		clearInterval(responseTimer);
+		passCount++;
+		
+		if (passCount === 1) {
+			hasPassed = true;
+			document.getElementById('pass-button').innerText = 'Repassar';
+			currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
+			showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer);
+			updateScores();
+		} else if (passCount === 2) {
+			document.getElementById('pass-button').classList.add('hidden');
+			currentTeam = originalTeam;
+			showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer);
+			updateScores();
+		}
+	}
+	
+	function showOverlay(message, callback) {
+		document.getElementById('overlay-content').innerHTML =
+			`<p class="text-2xl mb-6">${message}</p>
+        <button id="overlay-button" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-xl">
+            OK
+        </button>`;
+		document.getElementById('overlay').classList.remove('hidden');
+		
+		document.getElementById('overlay-button').onclick = () => {
+			document.getElementById('overlay').classList.add('hidden');
+			if (callback) callback();
+		};
+	}
+	
+	function nextQuestion() {
+		document.getElementById('question-screen').classList.add('hidden');
+		currentQuestionIndex++;
+		if (currentQuestionIndex < questions.length) {
+			startBuzzer();
+		} else {
+			endGame();
+		}
+	}
+	
+	function endGame() {
+		let finalMessage = `Fim do jogo!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
+		showOverlay(finalMessage, () => {
+			currentQuestionIndex = 0;
+			currentTeam = '';
+			originalTeam = '';
+			teamAScore = 0;
+			teamBScore = 0;
+			passCount = 0;
+			updateScores();
+			document.getElementById('start-screen').classList.remove('hidden');
+		});
+	}
+</script>
 
-<button id="top-button" class="hidden fixed bottom-4 right-4 bg-primary text-white p-3 rounded-full shadow-lg transform hover:scale-110 transition">
-	⬆️
-</button>
-
-<script src="script.js"></script>
 </body>
 </html>
