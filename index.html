@@ -169,8 +169,6 @@
 <!--</body>-->
 <!--</html>-->
 
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -198,14 +196,16 @@
 			<p class="text-3xl text-red-600" id="team-a-score">0</p>
 		</div>
 		<div class="text-center">
-			<p class="text-3xl font-bold">Time B</p>
-			<p class="text-3xl text-blue-600" id="team-b-score">0</p>
-		</div>
-		<div class="text-center">
 			<p class="text-3xl font-bold">Vez do</p>
 			<p class="text-3xl" id="current-team">-</p>
 		</div>
+		<div class="text-center">
+			<p class="text-3xl font-bold">Time B</p>
+			<p class="text-3xl text-blue-600" id="team-b-score">0</p>
+		</div>
 	</div>
+	
+	<p id="timer" class="mt-4 text-red-500 font-bold text-xl"></p>
 	
 	<div id="game-container" class="flex-grow flex flex-col">
 		
@@ -237,9 +237,7 @@
 			<button id="pass-button" class="mt-6 bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg">
 				Passar
 			</button>
-			<p id="timer" class="mt-4 text-red-500 font-bold text-xl"></p>
 		</div>
-	
 	</div>
 </div>
 
@@ -404,7 +402,18 @@
 			document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
 			if (timeLeft <= 0) {
 				clearInterval(responseTimer);
-				passQuestion();
+				if (passCount === 2) {
+					// Se estiver no segundo "Passar/Repassar" e o tempo acabar, subtrair pontos
+					if (currentTeam === 'Time A') {
+						teamAScore -= 5;
+					} else {
+						teamBScore -= 5;
+					}
+					updateScores();
+					showOverlay('Tempo esgotado. -5 pontos.', nextQuestion);
+				} else {
+					passQuestion(); // Se for o primeiro passar, passar a pergunta normalmente
+				}
 			}
 		}, 1000);
 	}
@@ -432,7 +441,6 @@
 		updateScores();
 		showOverlay(message, nextQuestion);
 	}
-	
 	document.getElementById('pass-button').addEventListener('click', passQuestion);
 	
 	function passQuestion() {
