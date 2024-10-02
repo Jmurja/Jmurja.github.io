@@ -53,14 +53,14 @@
 		</div>
 		
 		<div id="buzzer-screen" class="hidden flex flex-col items-center justify-center flex-grow">
-			<h2 class="text-3xl font-semibold mb-8">Posicione sua mão na imagem</h2>
+			<h2 id="buzzer-question" class="text-3xl font-semibold mb-8 text-center">Aqui aparecerá a pergunta</h2>
+			<h3 class="text-xl font-medium mb-4">Quem souber a resposta, solte o buzzer!</h3>
 			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
 				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
 				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B" class="w-64 h-64 m-4 cursor-pointer">
 			</div>
-			<p class="mt-4 text-2xl">O primeiro time a soltar a imagem poderá responder.</p>
 		</div>
-		
+
 		<div id="question-screen" class="hidden flex flex-col items-center justify-center flex-grow">
 			<h2 id="question" class="text-3xl font-semibold mb-8 text-center"></h2>
 			<div id="options" class="grid grid-cols-2 gap-6"></div>
@@ -154,6 +154,8 @@
 	
 	function startBuzzer() {
 		document.getElementById('buzzer-screen').classList.remove('hidden');
+		const currentQuestion = questions[currentQuestionIndex]; // Pegar a pergunta atual
+		document.getElementById('buzzer-question').innerText = currentQuestion.question; // Mostrar a pergunta no buzzer
 		
 		let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
 		let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
@@ -185,8 +187,10 @@
 			
 			proceedToQuestion();
 		}
-		
-		function proceedToQuestion() {
+	}
+	
+	
+	function proceedToQuestion() {
 			buzzerButtonTeamA.removeEventListener('touchstart', handleTouchStart);
 			buzzerButtonTeamB.removeEventListener('touchstart', handleTouchStart);
 			buzzerButtonTeamA.removeEventListener('touchend', handleTouchEnd);
