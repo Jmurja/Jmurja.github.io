@@ -1,4 +1,3 @@
-let currentQuestionIndex = 0;
 let currentTeam = '';
 let originalTeam = '';
 let teamAScore = 0;
@@ -41,12 +40,21 @@ function updateScores() {
   teamBScoreElement.innerText = teamBScore;
   currentTeamElement.innerText = currentTeam;
   
+  teamAScoreElement.classList.remove('text-red-600', 'text-blue-600');
+  teamBScoreElement.classList.remove('text-red-600', 'text-blue-600');
+  
   if (currentTeam === 'Time A') {
     currentTeamElement.classList.add('text-red-600');
     currentTeamElement.classList.remove('text-blue-600');
+    teamAScoreElement.classList.add('text-red-600');
+    teamBScoreElement.classList.add('text-blue-600');
   } else if (currentTeam === 'Time B') {
     currentTeamElement.classList.add('text-blue-600');
     currentTeamElement.classList.remove('text-red-600');
+    teamBScoreElement.classList.add('text-blue-600');
+    teamAScoreElement.classList.add('text-red-600');
+  } else {
+    currentTeamElement.classList.remove('text-red-600', 'text-blue-600');
   }
 }
 
@@ -101,7 +109,7 @@ function handleTouchEndTeamA(e) {
     teamThatReleased = 'Time A';
     currentTeam = 'Time A';
     updateScores();
-    setTimeout(showQuestion, 3000);  // Exibe a pergunta após 3 segundos
+    startResponseTimer();
   }
 }
 
@@ -121,7 +129,7 @@ function handleTouchEndTeamB(e) {
     teamThatReleased = 'Time B';
     currentTeam = 'Time B';
     updateScores();
-    setTimeout(showQuestion, 3000);  // Exibe a pergunta após 3 segundos
+    startResponseTimer();
   }
 }
 
@@ -144,13 +152,12 @@ function startResponseTimer() {
     document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
     if (timeLeft <= 0) {
       clearInterval(responseTimer);
-      passQuestion();  // Passa a pergunta para a outra equipe se o tempo esgotar
+      showOverlay('Tempo esgotado!', nextQuestion);
     }
   }, 1000);
 }
 
 function showQuestion() {
-  document.getElementById('buzzer-screen').classList.add('hidden');
   document.getElementById('question-screen').classList.remove('hidden');
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById('question').innerText = currentQuestion.question;
@@ -166,22 +173,7 @@ function showQuestion() {
     optionsContainer.appendChild(button);
   });
   
-  startResponseTimer(); // Inicia o temporizador para responder
-}
-
-function passQuestion() {
-  clearInterval(responseTimer);
-  if (!hasPassed) {
-    // Passa para a outra equipe
-    currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
-    hasPassed = true;
-    startResponseTimer();
-    updateScores();
-    document.getElementById('pass-button').classList.add('hidden');
-  } else {
-    // Se já foi passado, encerra a pergunta
-    nextQuestion();
-  }
+  startResponseTimer(); // Reinicia o temporizador para responder
 }
 
 function checkAnswer(selectedOption) {
@@ -225,10 +217,10 @@ function showOverlay(message, callback) {
 function nextQuestion() {
   document.getElementById('question-screen').classList.add('hidden');
   currentQuestionIndex++;
-  hasPassed = false;
-  
   if (currentQuestionIndex < questions.length) {
     startBuzzer();
+    
+    
   } else {
     endGame();
   }

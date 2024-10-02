@@ -6,12 +6,12 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<style>
 		body {
-			-webkit-touch-callout: none; /* Evitar chamadas de contexto no iOS */
-			-webkit-user-select: none;   /* Desativar a seleção de texto no iOS */
-			-khtml-user-select: none;    /* Desativar a seleção de texto em navegadores baseados no KHTML */
-			-moz-user-select: none;      /* Desativar a seleção de texto no Firefox */
-			-ms-user-select: none;       /* Desativar a seleção de texto no IE */
-			user-select: none;           /* Desativar a seleção de texto no Chrome */
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
 		.selected {
 			border: 4px solid green;
@@ -19,64 +19,70 @@
 		}
 	</style>
 </head>
-<body class="bg-gray-100" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
-
-<div class="max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-lg min-h-screen flex flex-col">
+<body class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center">
+<div class="max-w-screen-md w-full mx-auto bg-white bg-opacity-90 p-8 rounded-lg shadow-2xl min-h-screen flex flex-col">
 	
-	<div id="scoreboard" class="flex justify-between items-center bg-gray-200 p-4 rounded-lg mb-4">
+	<!-- Scoreboard -->
+	<div id="scoreboard" class="flex justify-between items-center bg-gray-100 p-6 rounded-lg mb-6 shadow-lg">
 		<div class="text-center">
-			<p class="text-3xl font-bold">Time A</p>
-			<p class="text-3xl text-red-600 items-center" id="team-a-score">0</p>
+			<p class="text-3xl lg:text-4xl font-bold text-gray-700">Time A</p>
+			<p class="text-4xl lg:text-5xl text-red-600" id="team-a-score">0</p>
 		</div>
 		<div class="text-center">
-			<p class="text-3xl font-bold">Vez do</p>
-			<p class="text-3xl" id="current-team">-</p>
+			<p class="text-2xl lg:text-3xl font-bold text-gray-700">Vez do</p>
+			<p class="text-2xl lg:text-3xl font-semibold text-gray-900" id="current-team">-</p>
 		</div>
 		<div class="text-center">
-			<p class="text-3xl font-bold">Time B</p>
-			<p class="text-3xl text-blue-600" id="team-b-score">0</p>
+			<p class="text-3xl lg:text-4xl font-bold text-gray-700">Time B</p>
+			<p class="text-4xl lg:text-5xl text-blue-600" id="team-b-score">0</p>
 		</div>
 	</div>
 	
-	<p id="timer" class="mt-4 text-red-500 font-bold text-xl"></p>
+	<!-- Timer -->
+	<p id="timer" class="mt-4 text-red-600 font-bold text-xl lg:text-2xl text-center"></p>
 	
+	<!-- Game Container -->
 	<div id="game-container" class="flex-grow flex flex-col">
 		
+		<!-- Start Screen -->
 		<div id="start-screen" class="flex items-center justify-center flex-grow">
 			<div class="text-center">
-				<h1 class="text-5xl font-bold mb-8">PASSA OU REPASSA</h1>
-				<button id="start-button" class="bg-blue-500 text-white px-8 py-4 rounded-lg text-xl">
+				<h1 class="text-5xl lg:text-7xl font-extrabold text-gray-800 mb-8">PASSA OU REPASSA</h1>
+				<button id="start-button" class="bg-blue-600 hover:bg-blue-700 transition-colors text-white px-8 py-4 rounded-lg text-xl lg:text-2xl font-semibold shadow-md">
 					Iniciar
 				</button>
 			</div>
 		</div>
 		
+		<!-- Countdown Screen -->
 		<div id="countdown-screen" class="hidden flex items-center justify-center flex-grow">
-			<h2 id="countdown" class="text-8xl font-bold"></h2>
+			<h2 id="countdown" class="text-8xl font-extrabold text-gray-800"></h2>
 		</div>
 		
+		<!-- Buzzer Screen -->
 		<div id="buzzer-screen" class="hidden flex flex-col items-center justify-center flex-grow">
-			<h2 class="text-3xl font-semibold mb-8">Posicione sua mão na imagem</h2>
-			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
-				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
-				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B" class="w-64 h-64 m-4 cursor-pointer">
+			<h2 class="text-3xl lg:text-4xl font-semibold mb-8">Posicione sua mão na imagem</h2>
+			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-6 lg:px-12">
+				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-32 h-32 lg:w-64 lg:h-64 m-4 cursor-pointer">
+				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B" class="w-32 h-32 lg:w-64 lg:h-64 m-4 cursor-pointer">
 			</div>
-			<p class="mt-4 text-2xl">O primeiro time a soltar a imagem poderá responder.</p>
+			<p class="mt-4 text-2xl lg:text-3xl text-gray-700">O primeiro time a soltar a imagem poderá responder.</p>
 		</div>
 		
+		<!-- Question Screen -->
 		<div id="question-screen" class="hidden flex flex-col items-center justify-center flex-grow">
-			<h2 id="question" class="text-3xl font-semibold mb-8 text-center"></h2>
+			<h2 id="question" class="text-2xl lg:text-3xl font-semibold mb-8 text-center text-gray-800"></h2>
 			<div id="options" class="grid grid-cols-2 gap-6"></div>
-			<button id="pass-button" class="mt-6 bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg">
+			<button id="pass-button" class="mt-6 bg-yellow-500 hover:bg-yellow-600 transition-colors text-white px-6 py-3 rounded-lg text-lg lg:text-xl font-semibold">
 				Passar
 			</button>
 		</div>
 	</div>
 </div>
 
+<!-- Overlay -->
 <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-	<div id="overlay-content" class="bg-white p-8 rounded-lg shadow-lg text-center">
-	</div>
+	<div id="overlay-content" class="bg-white p-8 rounded-lg shadow-lg text-center"></div>
 </div>
 
 <script src="scripts.js"></script>
