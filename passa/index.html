@@ -45,7 +45,7 @@
 		<div id="start-screen" class="flex items-center justify-center flex-grow">
 			<div class="text-center">
 				<h1 class="text-5xl font-bold mb-8">PASSA OU REPASSA</h1>
-				<button id="start-button" class="bg-red-500 text-white px-8 py-4 rounded-lg text-xl">
+				<button id="start-button" class="bg-blue-500 text-white px-8 py-4 rounded-lg text-xl">
 					Iniciar
 				</button>
 			</div>
@@ -94,6 +94,7 @@
 	// Variáveis para armazenar o status do toque de cada imagem
 	let isTeamATouching = false;
 	let isTeamBTouching = false;
+	let teamThatReleased = ''; // Variável para armazenar o time que soltou a imagem
 	
 	const questions = [
 		{
@@ -186,6 +187,14 @@
 		isTeamATouching = false;
 		clearTimeout(buzzerTimeout);
 		simultaneousTouch = false;
+		
+		// Verifica se o time A soltou primeiro
+		if (teamThatReleased === '') {
+			teamThatReleased = 'Time A';
+			currentTeam = 'Time A'; // Define o time da vez
+			updateScores(); // Atualiza a exibição do time da vez
+			startResponseTimer(); // Inicia o temporizador de resposta
+		}
 	}
 	
 	// Funções para detectar o início e fim do toque do Time B
@@ -200,6 +209,14 @@
 		isTeamBTouching = false;
 		clearTimeout(buzzerTimeout);
 		simultaneousTouch = false;
+		
+		// Verifica se o time B soltou primeiro
+		if (teamThatReleased === '') {
+			teamThatReleased = 'Time B';
+			currentTeam = 'Time B'; // Define o time da vez
+			updateScores(); // Atualiza a exibição do time da vez
+			startResponseTimer(); // Inicia o temporizador de resposta
+		}
 	}
 	
 	// Verifica se os dois toques estão sendo feitos ao mesmo tempo
@@ -209,15 +226,25 @@
 			// Inicia o temporizador de 3 segundos
 			buzzerTimeout = setTimeout(() => {
 				simultaneousTouch = false;
-				proceedToQuestion(); // Prosegue para a pergunta após os 3 segundos
+				// Após os 3 segundos, as imagens continuam visíveis
+				document.getElementById('buzzer-screen').classList.remove('hidden');
 			}, 3000);
 		}
 	}
 	
-	function proceedToQuestion() {
-		document.getElementById('buzzer-screen').classList.add('hidden');
-		showQuestion();
-		updateScores();
+	// Função que inicia o temporizador de 30 segundos para a resposta
+	function startResponseTimer() {
+		let timeLeft = 30;
+		document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+		
+		responseTimer = setInterval(() => {
+			timeLeft--;
+			document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+			if (timeLeft <= 0) {
+				clearInterval(responseTimer);
+				showOverlay('Tempo esgotado!', nextQuestion);
+			}
+		}, 1000);
 	}
 	
 	function showQuestion() {
@@ -236,31 +263,7 @@
 			optionsContainer.appendChild(button);
 		});
 		
-		startResponseTimer();
-	}
-	
-	function startResponseTimer() {
-		let timeLeft = 30;
-		document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
-		
-		responseTimer = setInterval(() => {
-			timeLeft--;
-			document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
-			if (timeLeft <= 0) {
-				clearInterval(responseTimer);
-				if (passCount === 2) {
-					if (currentTeam === 'Time A') {
-						teamAScore -= 5;
-					} else {
-						teamBScore -= 5;
-					}
-					updateScores();
-					showOverlay('Tempo esgotado. -5 pontos.', nextQuestion);
-				} else {
-					passQuestion();
-				}
-			}
-		}, 1000);
+		startResponseTimer(); // Reinicia o temporizador para responder
 	}
 	
 	function checkAnswer(selectedOption) {
@@ -285,26 +288,6 @@
 		}
 		updateScores();
 		showOverlay(message, nextQuestion);
-	}
-	
-	document.getElementById('pass-button').addEventListener('click', passQuestion);
-	
-	function passQuestion() {
-		clearInterval(responseTimer);
-		passCount++;
-		
-		if (passCount === 1) {
-			hasPassed = true;
-			document.getElementById('pass-button').innerText = 'Repassar';
-			currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
-			showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer);
-			updateScores();
-		} else if (passCount === 2) {
-			document.getElementById('pass-button').classList.add('hidden');
-			currentTeam = originalTeam;
-			showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer);
-			updateScores();
-		}
 	}
 	
 	function showOverlay(message, callback) {
@@ -336,7 +319,6 @@
 		showOverlay(finalMessage, () => {
 			currentQuestionIndex = 0;
 			currentTeam = '';
-			originalTeam = '';
 			teamAScore = 0;
 			teamBScore = 0;
 			passCount = 0;
