@@ -78,6 +78,7 @@
 	<div id="overlay-content" class="bg-white p-8 rounded-lg shadow-lg text-center">
 	</div>
 </div>
+
 <script>
 	let currentQuestionIndex = 0;
 	let currentTeam = '';
@@ -89,6 +90,10 @@
 	let hasPassed = false;
 	let simultaneousTouch = false;
 	let buzzerTimeout;
+	
+	// Variáveis para armazenar o status do toque de cada imagem
+	let isTeamATouching = false;
+	let isTeamBTouching = false;
 	
 	const questions = [
 		{
@@ -163,39 +168,56 @@
 		let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
 		let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
 		
-		buzzerButtonTeamA.addEventListener('touchstart', handleTouchStart);
-		buzzerButtonTeamB.addEventListener('touchstart', handleTouchStart);
-		
-		function handleTouchStart(e) {
-			e.preventDefault();
-			if (!simultaneousTouch) {
-				simultaneousTouch = true;
-				buzzerTimeout = setTimeout(() => {
-					simultaneousTouch = false;
-					document.getElementById('buzzer-screen').classList.remove('hidden'); // Mantém o buzzer visível
-					proceedToQuestion();
-				}, 3000);
-			}
+		buzzerButtonTeamA.addEventListener('touchstart', handleTouchStartTeamA);
+		buzzerButtonTeamB.addEventListener('touchstart', handleTouchStartTeamB);
+		buzzerButtonTeamA.addEventListener('touchend', handleTouchEndTeamA);
+		buzzerButtonTeamB.addEventListener('touchend', handleTouchEndTeamB);
+	}
+	
+	// Funções para detectar o início e fim do toque do Time A
+	function handleTouchStartTeamA(e) {
+		e.preventDefault();
+		isTeamATouching = true;
+		checkSimultaneousTouch();
+	}
+	
+	function handleTouchEndTeamA(e) {
+		e.preventDefault();
+		isTeamATouching = false;
+		clearTimeout(buzzerTimeout);
+		simultaneousTouch = false;
+	}
+	
+	// Funções para detectar o início e fim do toque do Time B
+	function handleTouchStartTeamB(e) {
+		e.preventDefault();
+		isTeamBTouching = true;
+		checkSimultaneousTouch();
+	}
+	
+	function handleTouchEndTeamB(e) {
+		e.preventDefault();
+		isTeamBTouching = false;
+		clearTimeout(buzzerTimeout);
+		simultaneousTouch = false;
+	}
+	
+	// Verifica se os dois toques estão sendo feitos ao mesmo tempo
+	function checkSimultaneousTouch() {
+		if (isTeamATouching && isTeamBTouching && !simultaneousTouch) {
+			simultaneousTouch = true;
+			// Inicia o temporizador de 3 segundos
+			buzzerTimeout = setTimeout(() => {
+				simultaneousTouch = false;
+				proceedToQuestion(); // Prosegue para a pergunta após os 3 segundos
+			}, 3000);
 		}
 	}
 	
 	function proceedToQuestion() {
-		highlightResponder(); // Destaca o time que vai responder
+		document.getElementById('buzzer-screen').classList.add('hidden');
 		showQuestion();
 		updateScores();
-	}
-	
-	function highlightResponder() {
-		const teamAButton = document.getElementById('buzzer-button-team-a');
-		const teamBButton = document.getElementById('buzzer-button-team-b');
-		
-		if (currentTeam === 'Time A') {
-			teamAButton.classList.add('selected');
-			teamBButton.classList.remove('selected');
-		} else {
-			teamAButton.classList.remove('selected');
-			teamBButton.classList.add('selected');
-		}
 	}
 	
 	function showQuestion() {
@@ -213,11 +235,6 @@
 			button.addEventListener('click', () => checkAnswer(option.charAt(0)));
 			optionsContainer.appendChild(button);
 		});
-		
-		hasPassed = false;
-		passCount = 0;
-		document.getElementById('pass-button').innerText = 'Passar';
-		document.getElementById('pass-button').classList.remove('hidden');
 		
 		startResponseTimer();
 	}
@@ -269,6 +286,7 @@
 		updateScores();
 		showOverlay(message, nextQuestion);
 	}
+	
 	document.getElementById('pass-button').addEventListener('click', passQuestion);
 	
 	function passQuestion() {
