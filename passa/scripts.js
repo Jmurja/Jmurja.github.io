@@ -8,6 +8,7 @@ let passCount = 0;
 let hasPassed = false;
 let simultaneousTouch = false;
 let buzzerTimeout;
+let passedAlready = false; // Para verificar se já foi passado antes
 
 // Variáveis para armazenar o status do toque de cada imagem
 let isTeamATouching = false;
@@ -32,6 +33,7 @@ const questions = [
   },
 ];
 
+// Função para atualizar pontuação e exibir o time atual
 function updateScores() {
   const teamAScoreElement = document.getElementById('team-a-score');
   const teamBScoreElement = document.getElementById('team-b-score');
@@ -59,11 +61,13 @@ function updateScores() {
   }
 }
 
+// Iniciar o jogo
 document.getElementById('start-button').addEventListener('click', () => {
   document.getElementById('start-screen').classList.add('hidden');
   startCountdown();
 });
 
+// Primeira contagem regressiva de 3 segundos
 function startCountdown() {
   let countdown = 3;
   document.getElementById('countdown-screen').classList.remove('hidden');
@@ -76,14 +80,25 @@ function startCountdown() {
     } else {
       clearInterval(countdownInterval);
       document.getElementById('countdown-screen').classList.add('hidden');
-      startBuzzer();
+      startBuzzerCountdown();  // Iniciar a segunda contagem de 3 segundos
     }
   }, 1000);
 }
 
-function startBuzzer() {
+// Segunda contagem regressiva para o buzzer
+function startBuzzerCountdown() {
   document.getElementById('buzzer-screen').classList.remove('hidden');
   
+  let countdown = 3;
+  const buzzerCountdownInterval = setInterval(() => {
+    countdown--;
+    if (countdown <= 0) {
+      clearInterval(buzzerCountdownInterval);
+      showQuestion();  // Exibir pergunta após a contagem de 3 segundos
+    }
+  }, 1000);
+  
+  // Adicionando eventos de toque para Time A e Time B
   let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
   let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
   
@@ -93,80 +108,30 @@ function startBuzzer() {
   buzzerButtonTeamB.addEventListener('touchend', handleTouchEndTeamB);
 }
 
-// Funções para detectar o início e fim do toque do Time A
-function handleTouchStartTeamA(e) {
-  e.preventDefault();
-  isTeamATouching = true;
-  checkSimultaneousTouch();
-}
-
+// Funções para Time A e Time B soltarem o botão
 function handleTouchEndTeamA(e) {
   e.preventDefault();
-  isTeamATouching = false;
-  clearTimeout(buzzerTimeout);
-  simultaneousTouch = false;
-  
-  // Verifica se o time A soltou primeiro
   if (teamThatReleased === '') {
     teamThatReleased = 'Time A';
-    currentTeam = 'Time A'; // Define o time da vez
-    updateScores(); // Atualiza a exibição do time da vez
-    startResponseTimer(); // Inicia o temporizador de resposta
+    currentTeam = 'Time A';
+    updateScores();
   }
-}
-
-// Funções para detectar o início e fim do toque do Time B
-function handleTouchStartTeamB(e) {
-  e.preventDefault();
-  isTeamBTouching = true;
-  checkSimultaneousTouch();
 }
 
 function handleTouchEndTeamB(e) {
   e.preventDefault();
-  isTeamBTouching = false;
-  clearTimeout(buzzerTimeout);
-  simultaneousTouch = false;
-  
-  // Verifica se o time B soltou primeiro
   if (teamThatReleased === '') {
     teamThatReleased = 'Time B';
-    currentTeam = 'Time B'; // Define o time da vez
-    updateScores(); // Atualiza a exibição do time da vez
-    startResponseTimer(); // Inicia o temporizador de resposta
+    currentTeam = 'Time B';
+    updateScores();
   }
 }
 
-// Verifica se os dois toques estão sendo feitos ao mesmo tempo
-function checkSimultaneousTouch() {
-  if (isTeamATouching && isTeamBTouching && !simultaneousTouch) {
-    simultaneousTouch = true;
-    // Inicia o temporizador de 3 segundos
-    buzzerTimeout = setTimeout(() => {
-      simultaneousTouch = false;
-      // Após os 3 segundos, as imagens continuam visíveis
-      document.getElementById('buzzer-screen').classList.remove('hidden');
-    }, 3000);
-  }
-}
-
-// Função que inicia o temporizador de 30 segundos para a resposta
-function startResponseTimer() {
-  let timeLeft = 30;
-  document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
-  
-  responseTimer = setInterval(() => {
-    timeLeft--;
-    document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
-    if (timeLeft <= 0) {
-      clearInterval(responseTimer);
-      showOverlay('Tempo esgotado!', nextQuestion);
-    }
-  }, 1000);
-}
-
+// Função para mostrar a pergunta
 function showQuestion() {
+  document.getElementById('buzzer-screen').classList.add('hidden');
   document.getElementById('question-screen').classList.remove('hidden');
+  
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById('question').innerText = currentQuestion.question;
   
@@ -181,9 +146,10 @@ function showQuestion() {
     optionsContainer.appendChild(button);
   });
   
-  startResponseTimer(); // Reinicia o temporizador para responder
+  startResponseTimer(); // Iniciar o temporizador de resposta
 }
 
+// Função para verificar a resposta
 function checkAnswer(selectedOption) {
   clearInterval(responseTimer);
   const currentQuestion = questions[currentQuestionIndex];
@@ -204,16 +170,41 @@ function checkAnswer(selectedOption) {
     }
     message = 'Resposta incorreta!';
   }
+  
   updateScores();
   showOverlay(message, nextQuestion);
 }
 
+// Temporizador de 30 segundos para responder
+function startResponseTimer() {
+  let timeLeft = 30;
+  document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+  
+  responseTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+    if (timeLeft <= 0) {
+      clearInterval(responseTimer);
+      if (passedAlready) {
+        if (currentTeam === 'Time A') {
+          teamAScore -= 5;
+        } else {
+          teamBScore -= 5;
+        }
+        updateScores();
+      }
+      showOverlay('Tempo esgotado!', nextQuestion);
+    }
+  }, 1000);
+}
+
+// Função para exibir o overlay e a mensagem
 function showOverlay(message, callback) {
   document.getElementById('overlay-content').innerHTML =
     `<p class="text-2xl mb-6">${message}</p>
-        <button id="overlay-button" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-xl">
-            OK
-        </button>`;
+    <button id="overlay-button" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-xl">
+        OK
+    </button>`;
   document.getElementById('overlay').classList.remove('hidden');
   
   document.getElementById('overlay-button').onclick = () => {
@@ -222,16 +213,18 @@ function showOverlay(message, callback) {
   };
 }
 
+// Próxima pergunta
 function nextQuestion() {
   document.getElementById('question-screen').classList.add('hidden');
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
-    startBuzzer();
+    startBuzzerCountdown(); // Reinicia a lógica para a próxima pergunta
   } else {
     endGame();
   }
 }
 
+// Função para finalizar o jogo
 function endGame() {
   let finalMessage = `Fim do jogo!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   showOverlay(finalMessage, () => {
@@ -239,7 +232,6 @@ function endGame() {
     currentTeam = '';
     teamAScore = 0;
     teamBScore = 0;
-    passCount = 0;
     updateScores();
     document.getElementById('start-screen').classList.remove('hidden');
   });
