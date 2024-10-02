@@ -4,20 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Jogo de Perguntas e Respostas</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<style>
-		body {
-			-webkit-touch-callout: none; /* Evitar chamadas de contexto no iOS */
-			-webkit-user-select: none;   /* Desativar a seleção de texto no iOS */
-			-khtml-user-select: none;    /* Desativar a seleção de texto em navegadores baseados no KHTML */
-			-moz-user-select: none;      /* Desativar a seleção de texto no Firefox */
-			-ms-user-select: none;       /* Desativar a seleção de texto no IE */
-			user-select: none;
-		}
-	</style>
 </head>
-<body class="bg-gray-100" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
 
-<div class="max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-lg min-h-screen flex flex-col">
+<div class="max-w-screen-md w-full bg-white p-8 rounded-lg shadow-lg min-h-[90vh] flex flex-col ">
 	
 	<div id="scoreboard" class="flex justify-between items-center bg-gray-200 p-4 rounded-lg mb-4">
 		<div class="text-center">
@@ -53,10 +43,10 @@
 		
 		<div id="buzzer-screen" class="hidden flex flex-col items-center justify-center flex-grow">
 			<h2 id="buzzer-question" class="text-3xl font-semibold mb-8 text-center">Aqui aparecerá a pergunta</h2>
-			<h3 class="text-xl font-medium mb-4">Quem souber a resposta, solte o buzzer!</h3>
+			<h3 class="text-xl font-medium mb-4">Segure o botão, quem souber a resposta, solte ele!</h3>
 			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
-				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
-				<img id="buzzer-button-team-b" src="mao_azul.png" alt="Time B" class="w-64 h-64 m-4 cursor-pointer">
+				<img id="buzzer-button-team-a" src="btn_red.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
+				<img id="buzzer-button-team-b" src="btn_blue.png" alt="Time B" class="w-64 h-64 m-4 cursor-pointer">
 			</div>
 		</div>
 		
