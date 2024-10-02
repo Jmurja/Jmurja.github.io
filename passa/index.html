@@ -13,10 +13,6 @@
 			-ms-user-select: none;       /* Desativar a seleção de texto no IE */
 			user-select: none;           /* Desativar a seleção de texto no Chrome */
 		}
-		.selected {
-			border: 4px solid green;
-			transform: scale(1.1);
-		}
 	</style>
 </head>
 <body class="bg-gray-100" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
@@ -172,7 +168,7 @@
 				simultaneousTouch = true;
 				buzzerTimeout = setTimeout(() => {
 					simultaneousTouch = false;
-					document.getElementById('buzzer-screen').classList.remove('hidden'); // Mantém o buzzer visível
+					document.getElementById('buzzer-screen').classList.add('hidden');
 					proceedToQuestion();
 				}, 3000);
 			}
@@ -180,22 +176,10 @@
 	}
 	
 	function proceedToQuestion() {
-		highlightResponder(); // Destaca o time que vai responder
+		document.getElementById('buzzer-screen').classList.add('hidden');
+		originalTeam = currentTeam;
 		showQuestion();
 		updateScores();
-	}
-	
-	function highlightResponder() {
-		const teamAButton = document.getElementById('buzzer-button-team-a');
-		const teamBButton = document.getElementById('buzzer-button-team-b');
-		
-		if (currentTeam === 'Time A') {
-			teamAButton.classList.add('selected');
-			teamBButton.classList.remove('selected');
-		} else {
-			teamAButton.classList.remove('selected');
-			teamBButton.classList.add('selected');
-		}
 	}
 	
 	function showQuestion() {
