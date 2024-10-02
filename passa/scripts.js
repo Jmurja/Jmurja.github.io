@@ -7,14 +7,11 @@ let responseTimer;
 let passCount = 0;
 let hasPassed = false;
 let simultaneousTouch = false;
-let buzzerTimeout;
-let passedAlready = false; // Para verificar se já foi passado antes
-let buzzerCountdownStarted = false; // Novo estado para verificar se a contagem do buzzer começou
-
-// Variáveis para armazenar o status do toque de cada imagem
+let passedAlready = false;
+let buzzerCountdownStarted = false;
 let isTeamATouching = false;
 let isTeamBTouching = false;
-let teamThatReleased = ''; // Variável para armazenar o time que soltou a imagem
+let teamThatReleased = '';
 
 const questions = [
   {
@@ -34,7 +31,6 @@ const questions = [
   },
 ];
 
-// Função para atualizar pontuação e exibir o time atual
 function updateScores() {
   const teamAScoreElement = document.getElementById('team-a-score');
   const teamBScoreElement = document.getElementById('team-b-score');
@@ -62,27 +58,43 @@ function updateScores() {
   }
 }
 
-// Iniciar o jogo
 document.getElementById('start-button').addEventListener('click', () => {
   document.getElementById('start-screen').classList.add('hidden');
-  showBuzzer(); // Exibe o buzzer para os times
+  showBuzzer();
 });
 
-// Mostrar os buzzers sem iniciar a contagem
 function showBuzzer() {
   document.getElementById('buzzer-screen').classList.remove('hidden');
   
-  // Adicionando eventos de toque para Time A e Time B
   let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
   let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
   
+  // Adicionando os eventos de toque e clique para melhor compatibilidade
   buzzerButtonTeamA.addEventListener('touchstart', handleTouchStartTeamA);
+  buzzerButtonTeamA.addEventListener('mousedown', handleTouchStartTeamA); // Para desktop
+  
   buzzerButtonTeamB.addEventListener('touchstart', handleTouchStartTeamB);
+  buzzerButtonTeamB.addEventListener('mousedown', handleTouchStartTeamB); // Para desktop
+  
   buzzerButtonTeamA.addEventListener('touchend', handleTouchEndTeamA);
+  buzzerButtonTeamA.addEventListener('mouseup', handleTouchEndTeamA); // Para desktop
+  
   buzzerButtonTeamB.addEventListener('touchend', handleTouchEndTeamB);
+  buzzerButtonTeamB.addEventListener('mouseup', handleTouchEndTeamB); // Para desktop
 }
 
-// Funções para Time A e Time B soltarem o botão
+function handleTouchStartTeamA(e) {
+  e.preventDefault(); // Evitar o comportamento padrão para dispositivos de toque
+  isTeamATouching = true; // Marcar que o Time A está pressionando
+  console.log("Time A pressionou o buzzer");
+}
+
+function handleTouchStartTeamB(e) {
+  e.preventDefault(); // Evitar o comportamento padrão para dispositivos de toque
+  isTeamBTouching = true; // Marcar que o Time B está pressionando
+  console.log("Time B pressionou o buzzer");
+}
+
 function handleTouchEndTeamA(e) {
   e.preventDefault();
   if (teamThatReleased === '') {
@@ -90,7 +102,6 @@ function handleTouchEndTeamA(e) {
     currentTeam = 'Time A';
     updateScores();
   }
-  // Iniciar contagem do buzzer após interação
   if (!buzzerCountdownStarted) {
     startBuzzerCountdown();
   }
@@ -103,29 +114,25 @@ function handleTouchEndTeamB(e) {
     currentTeam = 'Time B';
     updateScores();
   }
-  // Iniciar contagem do buzzer após interação
   if (!buzzerCountdownStarted) {
     startBuzzerCountdown();
   }
 }
 
-// Segunda contagem regressiva de 3 segundos para o buzzer
 function startBuzzerCountdown() {
-  buzzerCountdownStarted = true; // Marcar que a contagem começou
+  buzzerCountdownStarted = true;
   
   let countdown = 3;
   const buzzerCountdownInterval = setInterval(() => {
     countdown--;
     if (countdown <= 0) {
       clearInterval(buzzerCountdownInterval);
-      showQuestion();  // Exibir pergunta após a contagem de 3 segundos
+      showQuestion();
     }
   }, 1000);
 }
 
-// Função para mostrar a pergunta sem esconder os buzzers
 function showQuestion() {
-  // Os buzzers continuam visíveis
   document.getElementById('question-screen').classList.remove('hidden');
   
   const currentQuestion = questions[currentQuestionIndex];
@@ -142,10 +149,9 @@ function showQuestion() {
     optionsContainer.appendChild(button);
   });
   
-  startResponseTimer(); // Iniciar o temporizador de resposta
+  startResponseTimer();
 }
 
-// Função para verificar a resposta
 function checkAnswer(selectedOption) {
   clearInterval(responseTimer);
   const currentQuestion = questions[currentQuestionIndex];
@@ -171,7 +177,6 @@ function checkAnswer(selectedOption) {
   showOverlay(message, nextQuestion);
 }
 
-// Temporizador de 30 segundos para responder
 function startResponseTimer() {
   let timeLeft = 30;
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
@@ -194,7 +199,6 @@ function startResponseTimer() {
   }, 1000);
 }
 
-// Função para exibir o overlay e a mensagem
 function showOverlay(message, callback) {
   document.getElementById('overlay-content').innerHTML =
     `<p class="text-2xl mb-6">${message}</p>
@@ -209,21 +213,18 @@ function showOverlay(message, callback) {
   };
 }
 
-// Próxima pergunta
 function nextQuestion() {
   document.getElementById('question-screen').classList.add('hidden');
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
-    // Resetar o estado para uma nova rodada
     teamThatReleased = '';
-    buzzerCountdownStarted = false; // Permitir nova interação
-    showBuzzer(); // Exibe os buzzers novamente para a próxima pergunta
+    buzzerCountdownStarted = false;
+    showBuzzer();
   } else {
     endGame();
   }
 }
 
-// Função para finalizar o jogo
 function endGame() {
   let finalMessage = `Fim do jogo!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   showOverlay(finalMessage, () => {
