@@ -1,4 +1,3 @@
-
 let currentQuestionIndex = 0;
 let currentTeam = '';
 let originalTeam = '';
@@ -144,16 +143,22 @@ function showQuestion() {
 }
 
 function startResponseTimer() {
-  let timeLeft = 30;
+  // Primeiro, limpar qualquer intervalo existente para evitar múltiplos timers
+  clearInterval(responseTimer);
+  
+  let timeLeft = 30; // Reiniciar o tempo para 30 segundos
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
   
+  // Criar um novo intervalo de 1 segundo
   responseTimer = setInterval(() => {
     timeLeft--;
     document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+    
     if (timeLeft <= 0) {
-      clearInterval(responseTimer);
+      clearInterval(responseTimer);  // Limpar o intervalo ao fim do tempo
+      
       if (passCount === 2) {
-        // Se estiver no segundo "Passar/Repassar" e o tempo acabar, subtrair pontos
+        // Se for o segundo "Passar/Repassar" e o tempo acabar, subtrair pontos
         if (currentTeam === 'Time A') {
           teamAScore -= 5;
         } else {
@@ -169,7 +174,8 @@ function startResponseTimer() {
 }
 
 function checkAnswer(selectedOption) {
-  clearInterval(responseTimer);
+  clearInterval(responseTimer); // Limpar o intervalo ao responder corretamente
+  
   const currentQuestion = questions[currentQuestionIndex];
   let message = '';
   
@@ -191,22 +197,24 @@ function checkAnswer(selectedOption) {
   updateScores();
   showOverlay(message, nextQuestion);
 }
+
 document.getElementById('pass-button').addEventListener('click', passQuestion);
 
 function passQuestion() {
-  clearInterval(responseTimer);
+  clearInterval(responseTimer); // Limpar o intervalo ao passar a pergunta
+  
   passCount++;
   
   if (passCount === 1) {
     hasPassed = true;
     document.getElementById('pass-button').innerText = 'Repassar';
     currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
-    showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer);
+    showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer); // Reiniciar o timer
     updateScores();
   } else if (passCount === 2) {
     document.getElementById('pass-button').classList.add('hidden');
     currentTeam = originalTeam;
-    showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer);
+    showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer); // Reiniciar o timer
     updateScores();
   }
 }
