@@ -1,3 +1,4 @@
+let currentQuestionIndex = 0;
 let currentTeam = '';
 let originalTeam = '';
 let teamAScore = 0;
@@ -105,14 +106,16 @@ function handleTouchEndTeamA(e) {
   clearTimeout(buzzerTimeout);
   simultaneousTouch = false;
   
+  // Verifica se o time A soltou primeiro
   if (teamThatReleased === '') {
     teamThatReleased = 'Time A';
-    currentTeam = 'Time A';
-    updateScores();
-    startResponseTimer();
+    currentTeam = 'Time A'; // Define o time da vez
+    updateScores(); // Atualiza a exibição do time da vez
+    startResponseTimer(); // Inicia o temporizador de resposta
   }
 }
 
+// Funções para detectar o início e fim do toque do Time B
 function handleTouchStartTeamB(e) {
   e.preventDefault();
   isTeamBTouching = true;
@@ -125,24 +128,29 @@ function handleTouchEndTeamB(e) {
   clearTimeout(buzzerTimeout);
   simultaneousTouch = false;
   
+  // Verifica se o time B soltou primeiro
   if (teamThatReleased === '') {
     teamThatReleased = 'Time B';
-    currentTeam = 'Time B';
-    updateScores();
-    startResponseTimer();
+    currentTeam = 'Time B'; // Define o time da vez
+    updateScores(); // Atualiza a exibição do time da vez
+    startResponseTimer(); // Inicia o temporizador de resposta
   }
 }
 
+// Verifica se os dois toques estão sendo feitos ao mesmo tempo
 function checkSimultaneousTouch() {
   if (isTeamATouching && isTeamBTouching && !simultaneousTouch) {
     simultaneousTouch = true;
+    // Inicia o temporizador de 3 segundos
     buzzerTimeout = setTimeout(() => {
       simultaneousTouch = false;
+      // Após os 3 segundos, as imagens continuam visíveis
       document.getElementById('buzzer-screen').classList.remove('hidden');
     }, 3000);
   }
 }
 
+// Função que inicia o temporizador de 30 segundos para a resposta
 function startResponseTimer() {
   let timeLeft = 30;
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
@@ -219,8 +227,6 @@ function nextQuestion() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
     startBuzzer();
-    
-    
   } else {
     endGame();
   }
