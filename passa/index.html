@@ -4,15 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Jogo de Perguntas e Respostas</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		body {
+			-webkit-touch-callout: none; /* Evitar chamadas de contexto no iOS */
+			-webkit-user-select: none;   /* Desativar a seleção de texto no iOS */
+			-khtml-user-select: none;    /* Desativar a seleção de texto em navegadores baseados no KHTML */
+			-moz-user-select: none;      /* Desativar a seleção de texto no Firefox */
+			-ms-user-select: none;       /* Desativar a seleção de texto no IE */
+			user-select: none;
+		}
+	</style>
 </head>
-<body class="bg-gray-100 bg-cover bg-center" style="background-image: url('background.jpg');">
+<body class="bg-gray-100" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
 
-<div class="max-w-screen-lg mx-auto bg-white p-8 rounded-xl shadow-xl min-h-screen flex flex-col">
+<div class="max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-lg min-h-screen flex flex-col">
 	
-	<div id="scoreboard" class="flex justify-between items-center bg-gray-200 p-4 rounded-lg mb-4 shadow-md">
+	<div id="scoreboard" class="flex justify-between items-center bg-gray-200 p-4 rounded-lg mb-4">
 		<div class="text-center">
 			<p class="text-3xl font-bold">Time A</p>
-			<p class="text-3xl text-red-600" id="team-a-score">0</p>
+			<p class="text-3xl text-red-600 items-center" id="team-a-score">0</p>
 		</div>
 		<div class="text-center">
 			<p class="text-3xl font-bold">Vez do</p>
@@ -24,25 +34,25 @@
 		</div>
 	</div>
 	
-	<p id="timer" class="mt-4 text-red-500 font-bold text-xl transition-opacity duration-300"></p>
+	<p id="timer" class="mt-4 text-red-500 font-bold text-xl"></p>
 	
-	<div id="game-container" class="flex-grow flex flex-col space-y-8">
+	<div id="game-container" class="flex-grow flex flex-col">
 		
 		<div id="start-screen" class="flex items-center justify-center flex-grow">
 			<div class="text-center">
-				<h1 class="text-6xl font-extrabold mb-8">PASSA OU REPASSA</h1>
-				<button id="start-button" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-xl shadow-lg transition duration-300 ease-in-out">
+				<h1 class="text-5xl font-bold mb-8">PASSA OU REPASSA</h1>
+				<button id="start-button" class="bg-blue-500 text-white px-8 py-4 rounded-lg text-xl">
 					Iniciar
 				</button>
 			</div>
 		</div>
 		
 		<div id="countdown-screen" class="hidden flex items-center justify-center flex-grow">
-			<h2 id="countdown" class="text-9xl font-extrabold"></h2>
+			<h2 id="countdown" class="text-8xl font-bold"></h2>
 		</div>
 		
 		<div id="buzzer-screen" class="hidden flex flex-col items-center justify-center flex-grow">
-			<h2 id="buzzer-question" class="text-4xl font-semibold mb-8 text-center">Aqui aparecerá a pergunta</h2>
+			<h2 id="buzzer-question" class="text-3xl font-semibold mb-8 text-center">Aqui aparecerá a pergunta</h2>
 			<h3 class="text-xl font-medium mb-4">Quem souber a resposta, solte o buzzer!</h3>
 			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
 				<img id="buzzer-button-team-a" src="mao_vermelha.png" alt="Time A" class="w-64 h-64 m-4 cursor-pointer">
@@ -53,7 +63,7 @@
 		<div id="question-screen" class="hidden flex flex-col items-center justify-center flex-grow">
 			<h2 id="question" class="text-3xl font-semibold mb-8 text-center"></h2>
 			<div id="options" class="grid grid-cols-2 gap-6"></div>
-			<button id="pass-button" class="mt-6 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg text-lg shadow-lg transition duration-300 ease-in-out">
+			<button id="pass-button" class="mt-6 bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg">
 				Passar
 			</button>
 		</div>
@@ -61,7 +71,7 @@
 </div>
 
 <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-	<div id="overlay-content" class="bg-white p-8 rounded-xl shadow-lg text-center">
+	<div id="overlay-content" class="bg-white p-8 rounded-lg shadow-lg text-center">
 	</div>
 </div>
 
