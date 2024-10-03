@@ -244,8 +244,25 @@ function nextQuestion() {
 }
 
 function endGame() {
-  let finalMessage = `Fim do jogo!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
-  showOverlay(finalMessage, () => {
+  let winnerMessage = '';
+  
+  // Verifica quem é o vencedor
+  if (teamAScore > teamBScore) {
+    winnerMessage = `Time A venceu! 🎉<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
+  } else if (teamBScore > teamAScore) {
+    winnerMessage = `Time B venceu! 🎉<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
+  } else {
+    winnerMessage = `Empate!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
+  }
+  
+  showOverlay(winnerMessage, () => {
+    // Explosão de confetes
+    confetti({
+      particleCount: 200,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+    
     currentQuestionIndex = 0;
     currentTeam = '';
     originalTeam = '';
