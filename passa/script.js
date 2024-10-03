@@ -1,6 +1,7 @@
 const correctAnswerSound = new Audio('Correct.wav'); // Som ao acertar
 const buttonClickSound = new Audio('click.wav'); // Som ao clicar no botão
 
+
 let currentQuestionIndex = 0;
 let currentTeam = '';
 let originalTeam = '';
@@ -57,7 +58,6 @@ function updateScores() {
 
 // Som ao iniciar o jogo
 document.getElementById('start-button').addEventListener('click', () => {
-  startGameSound.play(); // Tocar o som de início
   document.getElementById('start-screen').classList.add('hidden');
   startCountdown();
 });
