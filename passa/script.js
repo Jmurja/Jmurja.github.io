@@ -1,3 +1,6 @@
+const correctAnswerSound = new Audio('Correct.wav'); // Som ao acertar
+const buttonClickSound = new Audio('click.wav'); // Som ao clicar no botão
+
 let currentQuestionIndex = 0;
 let currentTeam = '';
 let originalTeam = '';
@@ -52,7 +55,9 @@ function updateScores() {
   }
 }
 
+// Som ao iniciar o jogo
 document.getElementById('start-button').addEventListener('click', () => {
+  startGameSound.play(); // Tocar o som de início
   document.getElementById('start-screen').classList.add('hidden');
   startCountdown();
 });
@@ -130,7 +135,13 @@ function showQuestion() {
     const button = document.createElement('button');
     button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
     button.innerText = option;
-    button.addEventListener('click', () => checkAnswer(option.charAt(0)));
+    
+    // Som ao clicar nas opções de resposta
+    button.addEventListener('click', () => {
+      buttonClickSound.play(); // Tocar som ao clicar no botão
+      checkAnswer(option.charAt(0));
+    });
+    
     optionsContainer.appendChild(button);
   });
   
@@ -143,13 +154,10 @@ function showQuestion() {
 }
 
 function startResponseTimer() {
-  // Primeiro, limpar qualquer intervalo existente para evitar múltiplos timers
   clearInterval(responseTimer);
-  
   let timeLeft = 30; // Reiniciar o tempo para 30 segundos
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
   
-  // Criar um novo intervalo de 1 segundo
   responseTimer = setInterval(() => {
     timeLeft--;
     document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
@@ -158,7 +166,6 @@ function startResponseTimer() {
       clearInterval(responseTimer);  // Limpar o intervalo ao fim do tempo
       
       if (passCount === 2) {
-        // Se for o segundo "Passar/Repassar" e o tempo acabar, subtrair pontos
         if (currentTeam === 'Time A') {
           teamAScore -= 5;
         } else {
@@ -167,7 +174,7 @@ function startResponseTimer() {
         updateScores();
         showOverlay('Tempo esgotado. -5 pontos.', nextQuestion);
       } else {
-        passQuestion(); // Se for o primeiro passar, passar a pergunta normalmente
+        passQuestion();
       }
     }
   }, 1000);
@@ -180,6 +187,7 @@ function checkAnswer(selectedOption) {
   let message = '';
   
   if (selectedOption === currentQuestion.answer) {
+    correctAnswerSound.play(); // Tocar som de resposta correta
     if (currentTeam === 'Time A') {
       teamAScore += 10;
     } else {
@@ -246,7 +254,6 @@ function nextQuestion() {
 function endGame() {
   let winnerMessage = '';
   
-  // Verifica quem é o vencedor
   if (teamAScore > teamBScore) {
     winnerMessage = `Time A venceu! 🎉<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   } else if (teamBScore > teamAScore) {
@@ -255,9 +262,7 @@ function endGame() {
     winnerMessage = `Empate!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   }
   
-  // Mostra o card e ao mesmo tempo dispara os confetes e toca o áudio
   showOverlay(winnerMessage, () => {
-    // Resetar o jogo
     currentQuestionIndex = 0;
     currentTeam = '';
     originalTeam = '';
@@ -268,11 +273,11 @@ function endGame() {
     document.getElementById('start-screen').classList.remove('hidden');
   });
   
-  // Disparar confetes e tocar som
   const confettiSound = new Audio('confetti-sound.wav');
-  confettiSound.play(); // Reproduzir o som
+  const WinnerCompleteSound = new Audio('WinnerComplete.wav');
+  confettiSound.play();
+  WinnerCompleteSound.play();
   
-  // Explosão de confetes quando o overlay aparecer
   confetti({
     particleCount: 200,
     spread: 70,
