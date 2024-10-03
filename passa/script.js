@@ -255,7 +255,7 @@ function endGame() {
     winnerMessage = `Empate!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   }
   
-  // Mostra o card e ao mesmo tempo dispara os confetes
+  // Mostra o card e ao mesmo tempo dispara os confetes e toca o áudio
   showOverlay(winnerMessage, () => {
     // Resetar o jogo
     currentQuestionIndex = 0;
@@ -267,6 +267,10 @@ function endGame() {
     updateScores();
     document.getElementById('start-screen').classList.remove('hidden');
   });
+  
+  // Disparar confetes e tocar som
+  const confettiSound = new Audio('confetti-sound.wav');
+  confettiSound.play(); // Reproduzir o som
   
   // Explosão de confetes quando o overlay aparecer
   confetti({
