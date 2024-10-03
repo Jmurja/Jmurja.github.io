@@ -1,5 +1,5 @@
-const correctAnswerSound = new Audio('Correct.wav'); // Som ao acertar
-const buttonClickSound = new Audio('click.wav'); // Som ao clicar no botão
+const correctAnswerSound = new Audio('Correct.wav');
+const buttonClickSound = new Audio('click.wav');
 
 
 let currentQuestionIndex = 0;
@@ -81,8 +81,8 @@ function startCountdown() {
 
 function startBuzzer() {
   document.getElementById('buzzer-screen').classList.remove('hidden');
-  const currentQuestion = questions[currentQuestionIndex]; // Pegar a pergunta atual
-  document.getElementById('buzzer-question').innerText = currentQuestion.question; // Mostrar a pergunta no buzzer
+  const currentQuestion = questions[currentQuestionIndex];
+  document.getElementById('buzzer-question').innerText = currentQuestion.question;
   
   let buzzerButtonTeamA = document.getElementById('buzzer-button-team-a');
   let buzzerButtonTeamB = document.getElementById('buzzer-button-team-b');
@@ -96,12 +96,12 @@ function startBuzzer() {
   buzzerButtonTeamB.addEventListener('touchend', handleTouchEnd);
   
   function handleTouchStart(e) {
-    e.preventDefault();  // Prevenir comportamento padrão
-    buzzerPressed = true;  // Marcar que o buzzer foi pressionado
+    e.preventDefault();
+    buzzerPressed = true;
   }
   
   function handleTouchEnd(e) {
-    e.preventDefault();  // Prevenir comportamento padrão
+    e.preventDefault();
     if (!buzzerPressed) return;
     buzzerPressed = false;
     let releasedElement = e.target.id;
@@ -138,7 +138,7 @@ function showQuestion() {
     
     // Som ao clicar nas opções de resposta
     button.addEventListener('click', () => {
-      buttonClickSound.play(); // Tocar som ao clicar no botão
+      buttonClickSound.play();
       checkAnswer(option.charAt(0));
     });
     
@@ -155,7 +155,7 @@ function showQuestion() {
 
 function startResponseTimer() {
   clearInterval(responseTimer);
-  let timeLeft = 30; // Reiniciar o tempo para 30 segundos
+  let timeLeft = 30;
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
   
   responseTimer = setInterval(() => {
@@ -163,7 +163,7 @@ function startResponseTimer() {
     document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
     
     if (timeLeft <= 0) {
-      clearInterval(responseTimer);  // Limpar o intervalo ao fim do tempo
+      clearInterval(responseTimer);
       
       if (passCount === 2) {
         if (currentTeam === 'Time A') {
@@ -181,13 +181,13 @@ function startResponseTimer() {
 }
 
 function checkAnswer(selectedOption) {
-  clearInterval(responseTimer); // Limpar o intervalo ao responder corretamente
+  clearInterval(responseTimer);
   
   const currentQuestion = questions[currentQuestionIndex];
   let message = '';
   
   if (selectedOption === currentQuestion.answer) {
-    correctAnswerSound.play(); // Tocar som de resposta correta
+    correctAnswerSound.play();
     if (currentTeam === 'Time A') {
       teamAScore += 10;
     } else {
@@ -209,7 +209,7 @@ function checkAnswer(selectedOption) {
 document.getElementById('pass-button').addEventListener('click', passQuestion);
 
 function passQuestion() {
-  clearInterval(responseTimer); // Limpar o intervalo ao passar a pergunta
+  clearInterval(responseTimer);
   
   passCount++;
   
@@ -217,12 +217,12 @@ function passQuestion() {
     hasPassed = true;
     document.getElementById('pass-button').innerText = 'Repassar';
     currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
-    showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer); // Reiniciar o timer
+    showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer);
     updateScores();
   } else if (passCount === 2) {
     document.getElementById('pass-button').classList.add('hidden');
     currentTeam = originalTeam;
-    showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer); // Reiniciar o timer
+    showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer);
     updateScores();
   }
 }

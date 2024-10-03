@@ -4,8 +4,19 @@
 	<meta charset="UTF-8">
 	<title>Jogo de Perguntas e Respostas</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+	
+	<style>
+		.title{
+			font-family: "Baloo 2", sans-serif;
+			font-optical-sizing: auto;
+			font-weight: 700;
+			font-style: normal;
+		}
+		</style>
+	
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen" style="background-image: url('background.jpg'); background-size: cover; background-position: center;">
 <div class="max-w-screen-md w-[90vw] bg-white p-8  rounded-lg shadow-lg min-h-[90vh] flex flex-col  opacity-90">
@@ -30,7 +41,7 @@
 		
 		<div id="start-screen" class="flex items-center justify-center flex-grow">
 			<div class="text-center">
-				<h1 class="text-5xl font-bold mb-8" style="font-family: 'Baloo 2', cursive;">
+				<h1 class="title text-5xl font-bold mb-8" >
 					PASSA OU REPASSA
 				</h1>
 				<button id="start-button" class="bg-blue-500 text-white px-8 py-4 rounded-lg text-xl">
