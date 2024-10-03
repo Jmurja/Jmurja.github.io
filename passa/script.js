@@ -255,14 +255,9 @@ function endGame() {
     winnerMessage = `Empate!<br>Pontuação:<br>Time A: ${teamAScore}<br>Time B: ${teamBScore}`;
   }
   
+  // Mostra o card e ao mesmo tempo dispara os confetes
   showOverlay(winnerMessage, () => {
-    // Explosão de confetes
-    confetti({
-      particleCount: 200,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-    
+    // Resetar o jogo
     currentQuestionIndex = 0;
     currentTeam = '';
     originalTeam = '';
@@ -271,5 +266,12 @@ function endGame() {
     passCount = 0;
     updateScores();
     document.getElementById('start-screen').classList.remove('hidden');
+  });
+  
+  // Explosão de confetes quando o overlay aparecer
+  confetti({
+    particleCount: 200,
+    spread: 70,
+    origin: { y: 0.6 }
   });
 }
