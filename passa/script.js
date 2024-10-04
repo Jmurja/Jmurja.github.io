@@ -1,5 +1,7 @@
 const correctAnswerSound = new Audio('Correct.wav');
 const buttonClickSound = new Audio('click.wav');
+const backgroundMusic = new Audio('background-music.wav');
+const timeUpSound = new Audio('timeFail.wav');
 
 
 let currentQuestionIndex = 0;
@@ -10,6 +12,7 @@ let teamBScore = 0;
 let responseTimer;
 let passCount = 0;
 let hasPassed = false;
+
 
 const questions = [
   {
@@ -158,12 +161,20 @@ function startResponseTimer() {
   let timeLeft = 30;
   document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
   
+  // Iniciar música de fundo
+  backgroundMusic.loop = true; // Para tocar em loop
+  backgroundMusic.play();
+  
   responseTimer = setInterval(() => {
     timeLeft--;
     document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
     
     if (timeLeft <= 0) {
       clearInterval(responseTimer);
+      
+      // Parar música de fundo e tocar som de tempo esgotado
+      backgroundMusic.pause();
+      timeUpSound.play();
       
       if (passCount === 2) {
         if (currentTeam === 'Time A') {
@@ -179,6 +190,7 @@ function startResponseTimer() {
     }
   }, 1000);
 }
+
 
 function checkAnswer(selectedOption) {
   clearInterval(responseTimer);
