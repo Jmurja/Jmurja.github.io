@@ -168,10 +168,9 @@ function startResponseTimer() {
   timerElement.style.position = 'fixed';
   timerElement.style.left = '50%';              // Centraliza na horizontal
   timerElement.style.transform = 'translateX(-50%)'; // Ajuste para centralizar horizontalmente
-  timerElement.style.top = '200px';             // Desce o temporizador um pouco mais (ajustado)
+  timerElement.style.top = '200px';
   timerElement.style.fontSize = '2rem';
-  timerElement.style.color = 'red';             // Mantém a cor vermelha
-  timerElement.style.zIndex = '9999';           // Certifique-se que está acima de outros elementos
+  timerElement.style.color = 'red';
   
   timerElement.innerText = `Tempo restante: ${timeLeft}s`;
   
