@@ -176,6 +176,7 @@ function startResponseTimer() {
       
       backgroundMusic.pause();
       timeUpSound.play();
+      
       if (passCount === 2) {
         if (currentTeam === 'Time A') {
           teamAScore -= 5;
@@ -246,24 +247,28 @@ function passQuestion() {
 }
 
 function showOverlay(message, callback, sound = null, svgContent = null) {
+  // Define o conteúdo do overlay com a mensagem centralizada
   document.getElementById('overlay-content').innerHTML = `<p class="text-2xl mb-6 text-center">${message}</p>`;
   document.getElementById('overlay').classList.remove('hidden'); // Mostra o overlay
   
+  // Reproduz o som, se houver
   if (sound) {
     sound.play();
   }
   
+  // Se houver SVG, insere-o centralizado
   if (svgContent) {
+    // Adiciona o SVG com um contêiner flex para centralizá-lo
     const svgContainer = `<div style="display: flex; justify-content: center; align-items: center;">${svgContent}</div>`;
     document.getElementById('overlay-content').innerHTML += svgContainer;
   }
   
+  // Oculta o overlay após o tempo especificado (3 segundos)
   setTimeout(() => {
     document.getElementById('overlay').classList.add('hidden');
-    if (callback) callback();
-  }, 3000);
+    if (callback) callback(); // Executa o callback quando o overlay é ocultado
+  }, 3000); // Tempo do overlay visível
 }
-
 
 function nextQuestion() {
   document.getElementById('question-screen').classList.add('hidden');
