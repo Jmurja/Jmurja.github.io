@@ -107,16 +107,14 @@ function startBuzzer() {
     let releasedElement = e.target.id;
     
     const sirenSound = new Audio('sounds/siren.wav');
-    let svgToShow = ''; // Variável para armazenar o SVG correto
+    let svgToShow = '';
     
     if (releasedElement === 'buzzer-button-team-a') {
       currentTeam = 'Time A';
-      // Exibe o SVG verde para o Time A
       svgToShow = `<svg fill="#47ff1f" height="200px" width="200px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255.50 255.50" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 255.5 255.5" stroke="#47ff1f" stroke-width="7.664999999999999" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.533"></g><g id="SVGRepo_iconCarrier"> <g> <path d="m200.583,222.5h-6.333v-99.66c0-36.362-29.145-65.34-65.507-65.34h-0.32c-36.362,0-66.173,28.978-66.173,65.34v99.66h-6.667c-5.522,0-10.333,3.977-10.333,9.5v13c0,5.523 4.811,10.5 10.333,10.5h145c5.523,0 9.667-4.977 9.667-10.5v-13c0-5.523-4.145-9.5-9.667-9.5zm-72.16-141h-0.173v16h0.173c-14.248,0-25.84,12-25.84,26h-16c0-23 18.769-42 41.84-42z"></path> <path d="m128.25,33c4.418,0 8-3.582 8-8v-17c0-4.418-3.582-8-8-8s-8,3.582-8,8v17c0,4.418 3.582,8 8,8z"></path> <path d="m93.935,42.519c1.563,1.562 3.609,2.343 5.657,2.343 2.048,0 4.095-0.781 5.657-2.343 3.124-3.125 3.124-8.189 0-11.315l-12.02-12.021c-3.125-3.123-8.189-3.123-11.314,0-3.124,3.125-3.124,8.19 0,11.315l12.02,12.021z"></path> </g> </g></svg>`;
       showOverlay('Time A soltou o botão primeiro, ele irá responder.', proceedToQuestion, sirenSound, svgToShow);
     } else if (releasedElement === 'buzzer-button-team-b') {
       currentTeam = 'Time B';
-      // Exibe o SVG amarelo para o Time B
       svgToShow = `<svg fill="#ffe32c" height="200px" width="200px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255.50 255.50" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 255.5 255.5" stroke="#ffe32c" stroke-width="7.664999999999999" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.533"></g><g id="SVGRepo_iconCarrier"> <g> <path d="m200.583,222.5h-6.333v-99.66c0-36.362-29.145-65.34-65.507-65.34h-0.32c-36.362,0-66.173,28.978-66.173,65.34v99.66h-6.667c-5.522,0-10.333,3.977-10.333,9.5v13c0,5.523 4.811,10.5 10.333,10.5h145c5.523,0 9.667-4.977 9.667-10.5v-13c0-5.523-4.145-9.5-9.667-9.5zm-72.16-141h-0.173v16h0.173c-14.248,0-25.84,12-25.84,26h-16c0-23 18.769-42 41.84-42z"></path> <path d="m128.25,33c4.418,0 8-3.582 8-8v-17c0-4.418-3.582-8-8-8s-8,3.582-8,8v17c0,4.418 3.582,8 8,8z"></path> <path d="m93.935,42.519c1.563,1.562 3.609,2.343 5.657,2.343 2.048,0 4.095-0.781 5.657-2.343 3.124-3.125 3.124-8.189 0-11.315l-12.02-12.021c-3.125-3.123-8.189-3.123-11.314,0-3.124,3.125-3.124,8.19 0,11.315l12.02,12.021z"></path> <path d="m157.575,44.861c2.048,0 4.096-0.781 5.657-2.344l12.02-12.022c3.124-3.124 3.124-8.189-0.001-11.313-3.125-3.125-8.191-3.124-11.314,0.001l-12.02,12.021c-3.124,3.124-3.124,8.189 0.001,11.314 1.563,1.563 3.609,2.343 5.657,2.343z"></path> </g> </g></svg>`;
       showOverlay('Time B soltou o botão primeiro, ele irá responder.', proceedToQuestion, sirenSound, svgToShow);
     }
@@ -162,14 +160,27 @@ function showQuestion() {
 function startResponseTimer() {
   clearInterval(responseTimer);
   let timeLeft = 30;
-  document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+  
+  // Seleciona o elemento do temporizador
+  const timerElement = document.getElementById('timer');
+  
+  // Centraliza o texto horizontalmente no meio da tela e ajusta para descer mais
+  timerElement.style.position = 'fixed';
+  timerElement.style.left = '50%';              // Centraliza na horizontal
+  timerElement.style.transform = 'translateX(-50%)'; // Ajuste para centralizar horizontalmente
+  timerElement.style.top = '200px';             // Desce o temporizador um pouco mais (ajustado)
+  timerElement.style.fontSize = '2rem';
+  timerElement.style.color = 'red';             // Mantém a cor vermelha
+  timerElement.style.zIndex = '9999';           // Certifique-se que está acima de outros elementos
+  
+  timerElement.innerText = `Tempo restante: ${timeLeft}s`;
   
   backgroundMusic.loop = true;
   backgroundMusic.play();
   
   responseTimer = setInterval(() => {
     timeLeft--;
-    document.getElementById('timer').innerText = `Tempo restante: ${timeLeft}s`;
+    timerElement.innerText = `Tempo restante: ${timeLeft}s`;
     
     if (timeLeft <= 0) {
       clearInterval(responseTimer);
@@ -191,6 +202,7 @@ function startResponseTimer() {
     }
   }, 1000);
 }
+
 
 function checkAnswer(selectedOption) {
   clearInterval(responseTimer);
@@ -247,27 +259,22 @@ function passQuestion() {
 }
 
 function showOverlay(message, callback, sound = null, svgContent = null) {
-  // Define o conteúdo do overlay com a mensagem centralizada
   document.getElementById('overlay-content').innerHTML = `<p class="text-2xl mb-6 text-center">${message}</p>`;
-  document.getElementById('overlay').classList.remove('hidden'); // Mostra o overlay
+  document.getElementById('overlay').classList.remove('hidden');
   
-  // Reproduz o som, se houver
   if (sound) {
     sound.play();
   }
   
-  // Se houver SVG, insere-o centralizado
   if (svgContent) {
-    // Adiciona o SVG com um contêiner flex para centralizá-lo
     const svgContainer = `<div style="display: flex; justify-content: center; align-items: center;">${svgContent}</div>`;
     document.getElementById('overlay-content').innerHTML += svgContainer;
   }
   
-  // Oculta o overlay após o tempo especificado (3 segundos)
   setTimeout(() => {
     document.getElementById('overlay').classList.add('hidden');
-    if (callback) callback(); // Executa o callback quando o overlay é ocultado
-  }, 3000); // Tempo do overlay visível
+    if (callback) callback();
+  }, 3000);
 }
 
 function nextQuestion() {

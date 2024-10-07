@@ -16,6 +16,16 @@
 			font-weight: 700;
 			font-style: normal;
 		}
+		
+		@keyframes blink {
+			0% { opacity: 1; }
+			50% { opacity: 0; }
+			100% { opacity: 1; }
+		}
+		
+		.siren-animation {
+			animation: blink 1s infinite;
+		}
 	</style>
 
 </head>
@@ -25,7 +35,7 @@
 	<div id="scoreboard" class="flex justify-between shadow-xl items-center bg-gray-200 p-4 rounded-lg mb-4">
 		<div class="text-center">
 			<p class="text-3xl font-bold">Time A</p>
-			<p class="text-3xl text-red-600 items-center" id="team-a-score">0</p>
+			<p class="text-3xl text-green-500 items-center" id="team-a-score">0</p>
 		</div>
 		<div class="text-center">
 			<p class="text-3xl font-bold">Vez do</p>
@@ -33,7 +43,7 @@
 		</div>
 		<div class="text-center">
 			<p class="text-3xl font-bold">Time B</p>
-			<p class="text-3xl text-blue-600" id="team-b-score">0</p>
+			<p class="text-3xl text-yellow-400" id="team-b-score">0</p>
 		</div>
 	</div>
 	
@@ -58,8 +68,8 @@
 			<h2 id="buzzer-question" class="text-3xl font-semibold mb-8 text-center">Aqui aparecerá a pergunta</h2>
 			<h3 class="text-xl font-medium mb-4">Segure o botão, quem souber a resposta, solte ele!</h3>
 			<div class="flex absolute inset-y-0 left-0 right-0 mx-auto items-center justify-between w-full px-12">
-				<img id="buzzer-button-team-a" src="imgs/btn_red.png" alt="Time A" class="w-44 h-44 m-6 cursor-pointer">
-				<img id="buzzer-button-team-b" src="imgs/btn_blue.png" alt="Time B" class="w-44 h-44 m-6 cursor-pointer">
+				<img id="buzzer-button-team-a" src="imgs/btn_green.png" alt="Time A" class="w-44 h-44 m-6 cursor-pointer">
+				<img id="buzzer-button-team-b" src="imgs/btn_yellow.png" alt="Time B" class="w-44 h-44 m-6 cursor-pointer">
 			</div>
 		</div>
 		
