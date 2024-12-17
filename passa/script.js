@@ -39,21 +39,21 @@ function updateScores() {
   teamBScoreElement.innerText = teamBScore;
   currentTeamElement.innerText = currentTeam;
   
-  teamAScoreElement.classList.remove('text-red-600', 'text-blue-600');
-  teamBScoreElement.classList.remove('text-red-600', 'text-blue-600');
+  teamAScoreElement.classList.remove('text-green-500', 'text-yellow-400');
+  teamBScoreElement.classList.remove('text-green-500', 'text-yellow-400');
   
   if (currentTeam === 'Time A') {
-    currentTeamElement.classList.add('text-red-600');
-    currentTeamElement.classList.remove('text-blue-600');
-    teamAScoreElement.classList.add('text-red-600');
-    teamBScoreElement.classList.add('text-blue-600');
+    currentTeamElement.classList.add('text-green-500');
+    currentTeamElement.classList.remove('text-yellow-400');
+    teamAScoreElement.classList.add('text-green-500');
+    teamBScoreElement.classList.add('text-yellow-400');
   } else if (currentTeam === 'Time B') {
-    currentTeamElement.classList.add('text-blue-600');
-    currentTeamElement.classList.remove('text-red-600');
-    teamBScoreElement.classList.add('text-blue-600');
-    teamAScoreElement.classList.add('text-red-600');
+    currentTeamElement.classList.add('text-yellow-400');
+    currentTeamElement.classList.remove('text-green-500');
+    teamBScoreElement.classList.add('text-yellow-400');
+    teamAScoreElement.classList.add('text-green-500');
   } else {
-    currentTeamElement.classList.remove('text-red-600', 'text-blue-600');
+    currentTeamElement.classList.remove('text-green-500', 'text-yellow-400');
   }
 }
 
@@ -136,9 +136,12 @@ function showQuestion() {
   const optionsContainer = document.getElementById('options');
   optionsContainer.innerHTML = '';
   
+  // Usando Tailwind CSS para definir a cor de fundo dependendo de qual time está respondendo
+  const backgroundClass = currentTeam === 'Time A' ? 'bg-green-500' : 'bg-yellow-400';
+  
   currentQuestion.options.forEach((option) => {
     const button = document.createElement('button');
-    button.className = 'bg-green-500 text-white px-6 py-3 rounded-lg text-lg';
+    button.className = `${backgroundClass} text-white px-6 py-3 rounded-lg text-lg`;
     button.innerText = option;
     
     button.addEventListener('click', () => {
@@ -156,6 +159,7 @@ function showQuestion() {
   
   startResponseTimer();
 }
+
 
 function startResponseTimer() {
   clearInterval(responseTimer);
@@ -246,16 +250,37 @@ function passQuestion() {
     document.getElementById('pass-button').innerText = 'Repassar';
     currentTeam = currentTeam === 'Time A' ? 'Time B' : 'Time A';
     
+    // Atualiza a cor das respostas quando o time é alterado
+    updateOptionColors();
+    
     showOverlay(`Pergunta passada para ${currentTeam}.`, startResponseTimer);
     updateScores();
   } else if (passCount === 2) {
     document.getElementById('pass-button').classList.add('hidden');
     currentTeam = originalTeam;
     
+    // Atualiza a cor das respostas de volta para o time original
+    updateOptionColors();
+    
     showOverlay(`${currentTeam}, você deve responder agora.`, startResponseTimer);
     updateScores();
   }
 }
+
+function updateOptionColors() {
+  const optionsContainer = document.getElementById('options');
+  const buttons = optionsContainer.getElementsByTagName('button');
+  
+  // Define a classe de cor do fundo dependendo de qual time está respondendo
+  const backgroundClass = currentTeam === 'Time A' ? 'bg-green-500' : 'bg-yellow-400';
+  
+  // Remove as classes anteriores e aplica a nova cor
+  for (let button of buttons) {
+    button.classList.remove('bg-green-500', 'bg-yellow-400'); // Remove ambas as classes
+    button.classList.add(backgroundClass); // Aplica a nova cor baseada no time atual
+  }
+}
+
 
 function showOverlay(message, callback, sound = null, svgContent = null) {
   document.getElementById('overlay-content').innerHTML = `<p class="text-2xl mb-6 text-center">${message}</p>`;
